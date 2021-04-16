@@ -17,10 +17,10 @@ services:
             hostname: grafana
             user: "0"
             volumes:
-                - ./grafana.ini:/etc/grafana/grafana.ini
-                - ./grafanaDatasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
-                - ./grafanaDashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
-                - ./dashboards:/var/lib/grafana/dashboards
+                - ./grafana/grafana.ini:/etc/grafana/grafana.ini
+                - ./grafana/grafanaDatasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+                - ./grafana/grafanaDashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
+                - ./grafana/dashboards:/var/lib/grafana/dashboards
             ports: 
                 - 3000:3000
             networks:
@@ -34,7 +34,7 @@ services:
             hostname: prometheus
             command: --storage.tsdb.retention.time=7d --config.file=/etc/prometheus/prometheus.yml
             volumes:
-                - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+                - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
             ports:
                  - 9090:9090
             networks:
