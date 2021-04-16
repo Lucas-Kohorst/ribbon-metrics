@@ -102,7 +102,6 @@
             "pluginVersion": "7.5.4",
             "timeFrom": null,
             "timeShift": null,
-            "title": "Panel Title",
             "type": "text"
         },
         {
@@ -124,8 +123,8 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 2,
-                "w": 5,
+                "h": 3,
+                "w": 12,
                 "x": 0,
                 "y": 10
             },
@@ -161,86 +160,6 @@
             "transformations": [],
             "transparent": true,
             "type": "stat"
-        },
-        {
-            "datasource": null,
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "custom": {
-                        "align": "center",
-                        "filterable": false
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [{
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "string"
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 2,
-                "w": 6,
-                "x": 5,
-                "y": 10
-            },
-            "id": 17,
-            "options": {
-                "showHeader": false
-            },
-            "pluginVersion": "7.5.4",
-            "targets": [{
-                "exemplar": true,
-                "expr": "query_vaults_totalPremiumEarned",
-                "format": "table",
-                "instant": true,
-                "interval": "",
-                "legendFormat": "",
-                "refId": "A"
-            }],
-            "timeFrom": null,
-            "timeShift": null,
-            "title": "Total Premium Earned",
-            "transformations": [{
-                    "id": "calculateField",
-                    "options": {
-                        "binary": {
-                            "left": "value",
-                            "operator": "/",
-                            "reducer": "sum",
-                            "right": "1000000000"
-                        },
-                        "mode": "binary",
-                        "reduce": {
-                            "reducer": "sum"
-                        }
-                    }
-                },
-                {
-                    "id": "filterFieldsByName",
-                    "options": {
-                        "include": {
-                            "names": [
-                                "value / 1000000000"
-                            ]
-                        }
-                    }
-                }
-            ],
-            "transparent": true,
-            "type": "table"
         },
         {
             "datasource": null,
@@ -488,7 +407,7 @@
                 "h": 2,
                 "w": 5,
                 "x": 0,
-                "y": 12
+                "y": 13
             },
             "id": 21,
             "options": {
@@ -569,25 +488,24 @@
                                 "value": 80
                             }
                         ]
-                    },
-                    "unit": "string"
+                    }
                 },
                 "overrides": []
             },
             "gridPos": {
                 "h": 2,
-                "w": 6,
-                "x": 5,
-                "y": 12
+                "w": 5,
+                "x": 6,
+                "y": 13
             },
-            "id": 18,
+            "id": 28,
             "options": {
                 "showHeader": false
             },
             "pluginVersion": "7.5.4",
             "targets": [{
                 "exemplar": true,
-                "expr": "query_vaults_totalWithdrawalFee",
+                "expr": "query_vaultOptionTrades_sellAmount",
                 "format": "table",
                 "instant": true,
                 "interval": "",
@@ -596,87 +514,27 @@
             }],
             "timeFrom": null,
             "timeShift": null,
-            "title": "Total Withdraw Fee Earned",
+            "title": "Last Number of Contracts Sold",
             "transformations": [{
+                    "id": "labelsToFields",
+                    "options": {
+                        "valueLabel": "value"
+                    }
+                },
+                {
                     "id": "calculateField",
                     "options": {
                         "binary": {
                             "left": "value",
                             "operator": "/",
                             "reducer": "sum",
-                            "right": "1000000000"
+                            "right": "100000000"
                         },
                         "mode": "binary",
                         "reduce": {
                             "reducer": "sum"
                         }
                     }
-                },
-                {
-                    "id": "filterFieldsByName",
-                    "options": {
-                        "include": {
-                            "names": [
-                                "value / 1000000000"
-                            ]
-                        }
-                    }
-                }
-            ],
-            "transparent": true,
-            "type": "table"
-        },
-        {
-            "datasource": null,
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "custom": {
-                        "align": "center",
-                        "filterable": false
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [{
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    }
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 2,
-                "w": 5,
-                "x": 0,
-                "y": 14
-            },
-            "id": 26,
-            "options": {
-                "showHeader": false
-            },
-            "pluginVersion": "7.5.4",
-            "targets": [{
-                "exemplar": true,
-                "expr": "query_balanceUpdates_yieldEarned",
-                "format": "table",
-                "instant": true,
-                "interval": "",
-                "legendFormat": "",
-                "refId": "A"
-            }],
-            "title": "Yield Earned",
-            "transformations": [{
-                    "id": "labelsToFields",
-                    "options": {}
                 },
                 {
                     "id": "organize",
@@ -685,93 +543,14 @@
                             "Time": true,
                             "Value": true,
                             "__name__": true,
-                            "balanceUpdates": true,
                             "endpoint": true,
                             "instance": true,
-                            "job": true
+                            "job": true,
+                            "value": true,
+                            "vaultOptionTrades": true
                         },
                         "indexByName": {},
                         "renameByName": {}
-                    }
-                }
-            ],
-            "transparent": true,
-            "type": "table"
-        },
-        {
-            "datasource": null,
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "custom": {
-                        "align": "center",
-                        "filterable": false
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [{
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "string"
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 2,
-                "w": 6,
-                "x": 5,
-                "y": 14
-            },
-            "id": 19,
-            "options": {
-                "showHeader": false
-            },
-            "pluginVersion": "7.5.4",
-            "targets": [{
-                "exemplar": true,
-                "expr": "query_vaults_totalWithdrawalFee",
-                "format": "table",
-                "instant": true,
-                "interval": "",
-                "legendFormat": "",
-                "refId": "A"
-            }],
-            "timeFrom": null,
-            "timeShift": null,
-            "title": "Total Withdraw Fee Earned",
-            "transformations": [{
-                    "id": "calculateField",
-                    "options": {
-                        "binary": {
-                            "left": "value",
-                            "operator": "/",
-                            "reducer": "sum",
-                            "right": "1000000000"
-                        },
-                        "mode": "binary",
-                        "reduce": {
-                            "reducer": "sum"
-                        }
-                    }
-                },
-                {
-                    "id": "filterFieldsByName",
-                    "options": {
-                        "include": {
-                            "names": [
-                                "value / 1000000000"
-                            ]
-                        }
                     }
                 }
             ],
@@ -871,168 +650,6 @@
                                 "value": 80
                             }
                         ]
-                    }
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 2,
-                "w": 5,
-                "x": 0,
-                "y": 16
-            },
-            "id": 28,
-            "options": {
-                "showHeader": false
-            },
-            "pluginVersion": "7.5.4",
-            "targets": [{
-                "exemplar": true,
-                "expr": "query_vaultOptionTrades_sellAmount",
-                "format": "table",
-                "instant": true,
-                "interval": "",
-                "legendFormat": "",
-                "refId": "A"
-            }],
-            "timeFrom": null,
-            "timeShift": null,
-            "title": "Current Contracts Sold",
-            "transformations": [{
-                    "id": "labelsToFields",
-                    "options": {
-                        "valueLabel": "value"
-                    }
-                },
-                {
-                    "id": "calculateField",
-                    "options": {
-                        "binary": {
-                            "left": "value",
-                            "operator": "/",
-                            "reducer": "sum",
-                            "right": "100000000"
-                        },
-                        "mode": "binary",
-                        "reduce": {
-                            "reducer": "sum"
-                        }
-                    }
-                },
-                {
-                    "id": "organize",
-                    "options": {
-                        "excludeByName": {
-                            "Time": true,
-                            "Value": true,
-                            "__name__": true,
-                            "endpoint": true,
-                            "instance": true,
-                            "job": true,
-                            "value": true,
-                            "vaultOptionTrades": true
-                        },
-                        "indexByName": {},
-                        "renameByName": {}
-                    }
-                }
-            ],
-            "transparent": true,
-            "type": "table"
-        },
-        {
-            "datasource": null,
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "custom": {
-                        "align": "center",
-                        "filterable": false
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [{
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "string"
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 2,
-                "w": 13,
-                "x": 11,
-                "y": 16
-            },
-            "id": 11,
-            "options": {
-                "showHeader": false
-            },
-            "pluginVersion": "7.5.4",
-            "targets": [{
-                "exemplar": true,
-                "expr": "query_vaultShortPositions_openTxhash",
-                "format": "table",
-                "instant": true,
-                "interval": "",
-                "legendFormat": "",
-                "refId": "A"
-            }],
-            "title": "Current Option Open Open Tx",
-            "transformations": [{
-                "id": "organize",
-                "options": {
-                    "excludeByName": {
-                        "Time": true,
-                        "Value": true,
-                        "Value #A": true,
-                        "__name__": true,
-                        "endpoint": true,
-                        "instance": true,
-                        "job": true,
-                        "value": false,
-                        "vaultShortPositions": true
-                    },
-                    "indexByName": {},
-                    "renameByName": {}
-                }
-            }],
-            "transparent": true,
-            "type": "table"
-        },
-        {
-            "datasource": null,
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "custom": {
-                        "align": "center",
-                        "filterable": false
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [{
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
                     },
                     "unit": "dateTimeFromNow"
                 },
@@ -1040,9 +657,9 @@
             },
             "gridPos": {
                 "h": 2,
-                "w": 13,
-                "x": 11,
-                "y": 18
+                "w": 6,
+                "x": 0,
+                "y": 15
             },
             "id": 12,
             "options": {
@@ -1161,9 +778,9 @@
             },
             "gridPos": {
                 "h": 2,
-                "w": 13,
-                "x": 11,
-                "y": 20
+                "w": 5,
+                "x": 6,
+                "y": 15
             },
             "id": 4,
             "options": {
@@ -1235,7 +852,7 @@
                             }
                         ]
                     },
-                    "unit": "ms"
+                    "unit": "string"
                 },
                 "overrides": []
             },
@@ -1243,7 +860,77 @@
                 "h": 2,
                 "w": 13,
                 "x": 11,
-                "y": 22
+                "y": 16
+            },
+            "id": 11,
+            "options": {
+                "showHeader": false
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "exemplar": true,
+                "expr": "query_vaultShortPositions_openTxhash",
+                "format": "table",
+                "instant": true,
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+            }],
+            "title": "Current Option Open Open Tx",
+            "transformations": [{
+                "id": "organize",
+                "options": {
+                    "excludeByName": {
+                        "Time": true,
+                        "Value": true,
+                        "Value #A": true,
+                        "__name__": true,
+                        "endpoint": true,
+                        "instance": true,
+                        "job": true,
+                        "value": false,
+                        "vaultShortPositions": true
+                    },
+                    "indexByName": {},
+                    "renameByName": {}
+                }
+            }],
+            "transparent": true,
+            "type": "table"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "align": "center",
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "ms"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 2,
+                "w": 11,
+                "x": 0,
+                "y": 17
             },
             "id": 2,
             "options": {
