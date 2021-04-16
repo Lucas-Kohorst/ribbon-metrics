@@ -85,6 +85,29 @@
         {
             "datasource": null,
             "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 21,
+                "x": 1,
+                "y": 2
+            },
+            "id": 30,
+            "options": {
+                "content": "# Theta Vault Metrics\n- [ribbon.finance](https://ribbon.finance)\n- [Twitter](https://twitter.com/ribbonfinance)\n- [Discord](https://discord.com/invite/85gcVafPyN)\n- [Metrics](https://github.com/Lucas-Kohorst/theta-vault-metrics)\n\n### Overview\n[ribbon.finance](https://ribbon.finance) provides sustainable alpha for everyone. The primary product is the [theta vault](https://app.ribbon.finance/theta-vault/T-100-E) which earns yield by selling far out of the money covered calls. \n\nYou can find metrics for the vault at [metrics.thetagang.info](http://metrics.thetagang.info/d/hH2ap5XGz/theta-vault?orgId=1)\n\n### Development \nThe metrics are gathered from the [Ribbon Subgraph](https://thegraph.com/explorer/subgraph/kenchangh/ribbon-finance?query=Example%20query) and then scraped via a [graphql-exporter](https://github.com/ricardbejarano/graphql_exporter). ETH price feeds are also pulled in via [cryptowat-exporter](https://github.com/nbarrientos/cryptowat_exporter).\n\nEverything is scraped via [prometheus](https://prometheus.io/) and displayed in [grafana](https://grafana.com/)",
+                "mode": "markdown"
+            },
+            "pluginVersion": "7.5.4",
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Panel Title",
+            "type": "text"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
                 "defaults": {
                     "color": {
                         "mode": "thresholds"
@@ -104,7 +127,7 @@
                 "h": 2,
                 "w": 5,
                 "x": 0,
-                "y": 2
+                "y": 10
             },
             "id": 6,
             "options": {
@@ -171,7 +194,7 @@
                 "h": 2,
                 "w": 6,
                 "x": 5,
-                "y": 2
+                "y": 10
             },
             "id": 17,
             "options": {
@@ -241,7 +264,7 @@
                 "h": 4,
                 "w": 5,
                 "x": 12,
-                "y": 2
+                "y": 10
             },
             "id": 23,
             "options": {
@@ -262,7 +285,7 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                 "exemplar": true,
-                "expr": "crypto_currency{pair=\"ethusd\", exchange=\"coinbase-pro\"}",
+                "expr": "crypto_currency{pair=\"ethusd\", exchange=\"kraken\"}",
                 "interval": "",
                 "legendFormat": "",
                 "refId": "A"
@@ -299,7 +322,7 @@
                 "h": 4,
                 "w": 5,
                 "x": 18,
-                "y": 2
+                "y": 10
             },
             "id": 24,
             "options": {
@@ -465,7 +488,7 @@
                 "h": 2,
                 "w": 5,
                 "x": 0,
-                "y": 4
+                "y": 12
             },
             "id": 21,
             "options": {
@@ -555,7 +578,7 @@
                 "h": 2,
                 "w": 6,
                 "x": 5,
-                "y": 4
+                "y": 12
             },
             "id": 18,
             "options": {
@@ -634,7 +657,7 @@
                 "h": 2,
                 "w": 5,
                 "x": 0,
-                "y": 6
+                "y": 14
             },
             "id": 26,
             "options": {
@@ -707,7 +730,7 @@
                 "h": 2,
                 "w": 6,
                 "x": 5,
-                "y": 6
+                "y": 14
             },
             "id": 19,
             "options": {
@@ -787,7 +810,7 @@
                 "h": 2,
                 "w": 13,
                 "x": 11,
-                "y": 6
+                "y": 14
             },
             "id": 9,
             "options": {
@@ -848,6 +871,98 @@
                                 "value": 80
                             }
                         ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 2,
+                "w": 5,
+                "x": 0,
+                "y": 16
+            },
+            "id": 28,
+            "options": {
+                "showHeader": false
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "exemplar": true,
+                "expr": "query_vaultOptionTrades_sellAmount",
+                "format": "table",
+                "instant": true,
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+            }],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Current Contracts Sold",
+            "transformations": [{
+                    "id": "labelsToFields",
+                    "options": {
+                        "valueLabel": "value"
+                    }
+                },
+                {
+                    "id": "calculateField",
+                    "options": {
+                        "binary": {
+                            "left": "value",
+                            "operator": "/",
+                            "reducer": "sum",
+                            "right": "100000000"
+                        },
+                        "mode": "binary",
+                        "reduce": {
+                            "reducer": "sum"
+                        }
+                    }
+                },
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {
+                            "Time": true,
+                            "Value": true,
+                            "__name__": true,
+                            "endpoint": true,
+                            "instance": true,
+                            "job": true,
+                            "value": true,
+                            "vaultOptionTrades": true
+                        },
+                        "indexByName": {},
+                        "renameByName": {}
+                    }
+                }
+            ],
+            "transparent": true,
+            "type": "table"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "align": "center",
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
                     },
                     "unit": "string"
                 },
@@ -857,7 +972,7 @@
                 "h": 2,
                 "w": 13,
                 "x": 11,
-                "y": 8
+                "y": 16
             },
             "id": 11,
             "options": {
@@ -927,7 +1042,7 @@
                 "h": 2,
                 "w": 13,
                 "x": 11,
-                "y": 10
+                "y": 18
             },
             "id": 12,
             "options": {
@@ -1048,7 +1163,7 @@
                 "h": 2,
                 "w": 13,
                 "x": 11,
-                "y": 12
+                "y": 20
             },
             "id": 4,
             "options": {
@@ -1128,7 +1243,7 @@
                 "h": 2,
                 "w": 13,
                 "x": 11,
-                "y": 14
+                "y": 22
             },
             "id": 2,
             "options": {
@@ -1231,5 +1346,5 @@
     "timezone": "",
     "title": "Theta Vault",
     "uid": "hH2ap5XGz",
-    "version": 3
+    "version": 1
 }
