@@ -1,4 +1,8 @@
 scrape_configs:
+  - job_name: cryptowat
+    static_configs:
+      - targets: ['cryptowat:9745']
+
   - job_name: "theta-vaults"
     metrics_path: "/query"
     params:
@@ -26,7 +30,30 @@ scrape_configs:
               closeTxhash
               expiry
             }
+            balanceUpdates(first:1){
+              balance
+              yieldEarned
+            }
+            vaultOptionTrades{
+              premium
+              sellAmount
+              buyer
+              optionToken
+            }
+            instrumentPositions {
+              id
+              instrumentAddress
+              account
+              cost
+              exercised
+              amount
+              optionTypes
+              strikePrices
+              venues
+              expiry
+              exerciseProfit
+            }
           }
     static_configs:
-      - targets: ["172.22.0.2:9199"] # graphql_exporter address:port
+      - targets: ["graphql-exporter:9199"] # graphql_exporter address:port
 
