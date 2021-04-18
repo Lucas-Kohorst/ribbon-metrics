@@ -17,6 +17,28 @@
     "panels": [{
             "datasource": null,
             "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 7,
+                "w": 8,
+                "x": 0,
+                "y": 0
+            },
+            "id": 30,
+            "options": {
+                "content": "# Theta Vault Metrics\n- [ribbon.finance](https://ribbon.finance)\n- [Twitter](https://twitter.com/ribbonfinance)\n- [Discord](https://discord.com/invite/85gcVafPyN)\n- [Metrics](https://github.com/Lucas-Kohorst/theta-vault-metrics)\n\n### Overview\n[ribbon.finance](https://ribbon.finance) provides sustainable alpha for everyone. The primary product is the [theta vault](https://app.ribbon.finance/theta-vault/T-100-E) which earns yield by selling far out of the money covered calls. \n\nYou can find metrics for the vault at [metrics.thetagang.info](http://metrics.thetagang.info/d/hH2ap5XGz/theta-vault?orgId=1)\n\n### Development \nThe metrics are gathered from the [Ribbon Subgraph](https://thegraph.com/explorer/subgraph/kenchangh/ribbon-finance?query=Example%20query) and then scraped via a [graphql-exporter](https://github.com/ricardbejarano/graphql_exporter). ETH price feeds are also pulled in via [cryptowat-exporter](https://github.com/nbarrientos/cryptowat_exporter).\n\nEverything is scraped via [prometheus](https://prometheus.io/) and displayed in [grafana](https://grafana.com/)",
+                "mode": "markdown"
+            },
+            "pluginVersion": "7.5.4",
+            "timeFrom": null,
+            "timeShift": null,
+            "type": "text"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
                 "defaults": {
                     "color": {
                         "mode": "thresholds"
@@ -37,31 +59,34 @@
                                 "value": 80
                             }
                         ]
-                    }
+                    },
+                    "unit": "string"
                 },
                 "overrides": []
             },
             "gridPos": {
                 "h": 2,
-                "w": 24,
-                "x": 0,
+                "w": 8,
+                "x": 8,
                 "y": 0
             },
-            "id": 10,
+            "id": 9,
             "options": {
                 "showHeader": false
             },
             "pluginVersion": "7.5.4",
             "targets": [{
                 "exemplar": true,
-                "expr": "query_vaults_name",
+                "expr": "query_vaultShortPositions_option",
                 "format": "table",
                 "instant": true,
                 "interval": "",
                 "legendFormat": "",
                 "refId": "A"
             }],
-            "title": " ",
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Current Option",
             "transformations": [{
                 "id": "organize",
                 "options": {
@@ -73,7 +98,8 @@
                         "endpoint": true,
                         "instance": true,
                         "job": true,
-                        "vaults": true
+                        "value": false,
+                        "vaultShortPositions": true
                     },
                     "indexByName": {},
                     "renameByName": {}
@@ -85,24 +111,72 @@
         {
             "datasource": null,
             "fieldConfig": {
-                "defaults": {},
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "align": "center",
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "string"
+                },
                 "overrides": []
             },
             "gridPos": {
-                "h": 8,
-                "w": 21,
-                "x": 1,
-                "y": 2
+                "h": 2,
+                "w": 8,
+                "x": 16,
+                "y": 0
             },
-            "id": 30,
+            "id": 32,
             "options": {
-                "content": "# Theta Vault Metrics\n- [ribbon.finance](https://ribbon.finance)\n- [Twitter](https://twitter.com/ribbonfinance)\n- [Discord](https://discord.com/invite/85gcVafPyN)\n- [Metrics](https://github.com/Lucas-Kohorst/theta-vault-metrics)\n\n### Overview\n[ribbon.finance](https://ribbon.finance) provides sustainable alpha for everyone. The primary product is the [theta vault](https://app.ribbon.finance/theta-vault/T-100-E) which earns yield by selling far out of the money covered calls. \n\nYou can find metrics for the vault at [metrics.thetagang.info](http://metrics.thetagang.info/d/hH2ap5XGz/theta-vault?orgId=1)\n\n### Development \nThe metrics are gathered from the [Ribbon Subgraph](https://thegraph.com/explorer/subgraph/kenchangh/ribbon-finance?query=Example%20query) and then scraped via a [graphql-exporter](https://github.com/ricardbejarano/graphql_exporter). ETH price feeds are also pulled in via [cryptowat-exporter](https://github.com/nbarrientos/cryptowat_exporter).\n\nEverything is scraped via [prometheus](https://prometheus.io/) and displayed in [grafana](https://grafana.com/)",
-                "mode": "markdown"
+                "showHeader": false
             },
             "pluginVersion": "7.5.4",
+            "targets": [{
+                "exemplar": true,
+                "expr": "query_vaultOptionTrades_buyer",
+                "format": "table",
+                "instant": true,
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+            }],
             "timeFrom": null,
             "timeShift": null,
-            "type": "text"
+            "title": "Option Buyer",
+            "transformations": [{
+                "id": "organize",
+                "options": {
+                    "excludeByName": {
+                        "Time": true,
+                        "Value": true,
+                        "__name__": true,
+                        "endpoint": true,
+                        "instance": true,
+                        "job": true,
+                        "vaultOptionTrades": true
+                    },
+                    "indexByName": {},
+                    "renameByName": {}
+                }
+            }],
+            "transparent": true,
+            "type": "table"
         },
         {
             "datasource": null,
@@ -118,17 +192,18 @@
                             "color": "green",
                             "value": null
                         }]
-                    }
+                    },
+                    "unit": "s"
                 },
                 "overrides": []
             },
             "gridPos": {
                 "h": 3,
-                "w": 12,
-                "x": 0,
-                "y": 10
+                "w": 4,
+                "x": 8,
+                "y": 2
             },
-            "id": 6,
+            "id": 38,
             "options": {
                 "colorMode": "value",
                 "graphMode": "area",
@@ -147,16 +222,66 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                 "exemplar": true,
-                "expr": "query_vaults_numDepositors",
-                "format": "time_series",
-                "instant": false,
+                "expr": "(query_vaultShortPositions_expiry) - time()",
+                "instant": true,
                 "interval": "",
                 "legendFormat": "",
                 "refId": "A"
             }],
-            "timeFrom": null,
-            "timeShift": null,
-            "title": "Number Depositors",
+            "title": "Time till Expiry",
+            "transparent": true,
+            "type": "stat"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                            "color": "green",
+                            "value": null
+                        }]
+                    },
+                    "unit": "currencyUSD"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 3,
+                "w": 4,
+                "x": 12,
+                "y": 2
+            },
+            "id": 42,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "auto"
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "exemplar": true,
+                "expr": "query_vaultShortPositions_strikePrice / 100000000",
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+            }],
+            "title": "Current Strike Price",
             "transformations": [],
             "transparent": true,
             "type": "stat"
@@ -175,15 +300,16 @@
                             "color": "green",
                             "value": null
                         }]
-                    }
+                    },
+                    "unit": "currencyUSD"
                 },
                 "overrides": []
             },
             "gridPos": {
-                "h": 4,
-                "w": 5,
-                "x": 12,
-                "y": 10
+                "h": 3,
+                "w": 4,
+                "x": 16,
+                "y": 2
             },
             "id": 23,
             "options": {
@@ -238,12 +364,12 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 4,
-                "w": 5,
-                "x": 18,
-                "y": 10
+                "h": 3,
+                "w": 4,
+                "x": 20,
+                "y": 2
             },
-            "id": 24,
+            "id": 35,
             "options": {
                 "colorMode": "value",
                 "graphMode": "area",
@@ -262,51 +388,29 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                     "exemplar": true,
-                    "expr": "query_vaultShortPositions_strikePrice",
-                    "format": "table",
-                    "instant": true,
+                    "expr": "query_vaultShortPositions_strikePrice / 100000000",
                     "interval": "",
                     "legendFormat": "",
                     "refId": "A"
                 },
                 {
                     "exemplar": true,
-                    "expr": "crypto_currency{pair=\"ethusd\", exchange=\"coinbase-pro\"}",
-                    "format": "table",
+                    "expr": "crypto_currency{pair=\"ethusd\", exchange=\"kraken\"}",
                     "hide": false,
-                    "instant": true,
                     "interval": "",
                     "legendFormat": "",
                     "refId": "B"
                 }
             ],
-            "timeFrom": null,
-            "timeShift": null,
-            "title": "Percent to Strike",
+            "title": "Current % to Strike Price",
             "transformations": [{
                     "id": "calculateField",
                     "options": {
                         "binary": {
-                            "left": "value",
+                            "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"theta-vaults\", vaultShortPositions=\"0\"}",
                             "operator": "/",
                             "reducer": "sum",
-                            "right": "100000000"
-                        },
-                        "mode": "binary",
-                        "reduce": {
-                            "reducer": "sum"
-                        }
-                    }
-                },
-                {
-                    "id": "calculateField",
-                    "options": {
-                        "alias": "perecent_additional",
-                        "binary": {
-                            "left": "value / 100000000",
-                            "operator": "/",
-                            "reducer": "sum",
-                            "right": "Value #B"
+                            "right": "crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}"
                         },
                         "mode": "binary",
                         "reduce": {
@@ -318,26 +422,10 @@
                     "id": "calculateField",
                     "options": {
                         "binary": {
-                            "left": "1",
+                            "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"theta-vaults\", vaultShortPositions=\"0\"} / crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}",
                             "operator": "-",
                             "reducer": "sum",
-                            "right": "perecent_additional"
-                        },
-                        "mode": "binary",
-                        "reduce": {
-                            "reducer": "sum"
-                        }
-                    }
-                },
-                {
-                    "id": "calculateField",
-                    "options": {
-                        "alias": "Percent to Strike",
-                        "binary": {
-                            "left": "1 - perecent_additional",
-                            "operator": "*",
-                            "reducer": "sum",
-                            "right": "-1"
+                            "right": "1"
                         },
                         "mode": "binary",
                         "reduce": {
@@ -349,29 +437,228 @@
                     "id": "organize",
                     "options": {
                         "excludeByName": {
-                            "1 - perecent_additional": true,
                             "Time": true,
-                            "Value #A": true,
-                            "Value #B": true,
-                            "__name__ 1": true,
-                            "__name__ 2": true,
-                            "endpoint": true,
-                            "exchange": true,
-                            "instance 1": true,
-                            "instance 2": true,
-                            "job 1": true,
-                            "job 2": true,
-                            "pair": true,
-                            "perecent_additional": true,
-                            "value": true,
-                            "value / 100000000": true,
-                            "vaultShortPositions": true
+                            "crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}": true,
+                            "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"theta-vaults\", vaultShortPositions=\"0\"}": true,
+                            "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"theta-vaults\", vaultShortPositions=\"0\"} / crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}": true
                         },
                         "indexByName": {},
                         "renameByName": {}
                     }
                 }
             ],
+            "transparent": true,
+            "type": "stat"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "graph": false,
+                            "legend": false,
+                            "tooltip": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 3,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "always",
+                        "spanNulls": true
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                            "color": "green",
+                            "value": null
+                        }]
+                    },
+                    "unit": "short"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 10,
+                "y": 5
+            },
+            "id": 44,
+            "options": {
+                "graph": {},
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                },
+                "tooltipOptions": {
+                    "mode": "single"
+                }
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                    "exemplar": true,
+                    "expr": "crypto_currency{pair=\"ethusd\", exchange=\"kraken\"}",
+                    "interval": "",
+                    "legendFormat": "Current Price",
+                    "refId": "A"
+                },
+                {
+                    "exemplar": true,
+                    "expr": "query_vaultShortPositions_strikePrice / 100000000",
+                    "hide": false,
+                    "interval": "",
+                    "legendFormat": "Strike Price",
+                    "refId": "B"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Price Chart",
+            "transformations": [],
+            "transparent": true,
+            "type": "timeseries"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "align": "center",
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 2,
+                "w": 4,
+                "x": 0,
+                "y": 7
+            },
+            "id": 50,
+            "options": {
+                "showHeader": false
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "exemplar": true,
+                "expr": "query_vaults_symbol",
+                "format": "table",
+                "instant": true,
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+            }],
+            "transformations": [{
+                    "id": "labelsToFields",
+                    "options": {
+                        "valueLabel": "value"
+                    }
+                },
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {
+                            "Time": true,
+                            "Value": true,
+                            "__name__": true,
+                            "endpoint": true,
+                            "instance": true,
+                            "job": true,
+                            "vaults": true
+                        },
+                        "indexByName": {},
+                        "renameByName": {}
+                    }
+                }
+            ],
+            "transparent": true,
+            "type": "table"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                            "color": "green",
+                            "value": null
+                        }]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 4,
+                "x": 4,
+                "y": 7
+            },
+            "id": 6,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "auto"
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "exemplar": true,
+                "expr": "query_vaults_numDepositors",
+                "format": "time_series",
+                "instant": false,
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+            }],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Number Depositors",
+            "transformations": [],
             "transparent": true,
             "type": "stat"
         },
@@ -399,24 +686,106 @@
                             }
                         ]
                     },
-                    "unit": "ETH"
+                    "unit": "string"
                 },
                 "overrides": []
             },
             "gridPos": {
                 "h": 2,
-                "w": 5,
+                "w": 4,
                 "x": 0,
-                "y": 13
+                "y": 9
             },
-            "id": 21,
+            "id": 49,
             "options": {
                 "showHeader": false
             },
             "pluginVersion": "7.5.4",
             "targets": [{
                 "exemplar": true,
-                "expr": "query_balanceUpdates_balance",
+                "expr": "query_vaults_id",
+                "format": "table",
+                "instant": true,
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+            }],
+            "transformations": [{
+                    "id": "labelsToFields",
+                    "options": {
+                        "valueLabel": "value"
+                    }
+                },
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {
+                            "Time": true,
+                            "Value": true,
+                            "__name__": true,
+                            "endpoint": true,
+                            "instance": true,
+                            "job": true,
+                            "vaults": true
+                        },
+                        "indexByName": {},
+                        "renameByName": {}
+                    }
+                }
+            ],
+            "transparent": true,
+            "type": "table"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "continuous-GrYlRd"
+                    },
+                    "decimals": 5,
+                    "mappings": [],
+                    "max": 1000,
+                    "min": 2,
+                    "thresholds": {
+                        "mode": "percentage",
+                        "steps": [{
+                                "color": "red",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 100
+                            }
+                        ]
+                    },
+                    "unit": "ETH"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 4,
+                "x": 0,
+                "y": 11
+            },
+            "id": 21,
+            "options": {
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showThresholdLabels": false,
+                "showThresholdMarkers": false,
+                "text": {}
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "exemplar": true,
+                "expr": "query_balanceUpdates_balance / 10000000000",
                 "instant": true,
                 "interval": "",
                 "legendFormat": "",
@@ -425,598 +794,214 @@
             "timeFrom": null,
             "timeShift": null,
             "title": "Vault Balance",
-            "transformations": [{
-                    "id": "labelsToFields",
-                    "options": {}
-                },
-                {
-                    "id": "calculateField",
-                    "options": {
-                        "binary": {
-                            "left": "value",
-                            "operator": "/",
-                            "reducer": "sum",
-                            "right": "10000000000"
-                        },
-                        "mode": "binary",
-                        "reduce": {
-                            "reducer": "sum"
-                        }
-                    }
-                },
-                {
-                    "id": "organize",
-                    "options": {
-                        "excludeByName": {
-                            "Time": true,
-                            "Value": true,
-                            "balanceUpdates": true,
-                            "endpoint": true,
-                            "instance": true,
-                            "job": true,
-                            "value": true,
-                            "value / 10000000000": false
-                        },
-                        "indexByName": {},
-                        "renameByName": {}
-                    }
-                }
-            ],
+            "transformations": [],
             "transparent": true,
-            "type": "table"
+            "type": "gauge"
         },
         {
             "datasource": null,
+            "description": "",
             "fieldConfig": {
                 "defaults": {
                     "color": {
                         "mode": "thresholds"
                     },
-                    "custom": {
-                        "align": "center",
-                        "filterable": false
-                    },
                     "mappings": [],
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    }
+                            "color": "green",
+                            "value": null
+                        }]
+                    },
+                    "unit": "ETH"
                 },
                 "overrides": []
             },
             "gridPos": {
-                "h": 2,
-                "w": 5,
-                "x": 6,
-                "y": 13
+                "h": 4,
+                "w": 4,
+                "x": 4,
+                "y": 12
             },
-            "id": 28,
+            "id": 41,
             "options": {
-                "showHeader": false
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "auto"
             },
             "pluginVersion": "7.5.4",
             "targets": [{
                 "exemplar": true,
-                "expr": "query_vaultOptionTrades_sellAmount",
-                "format": "table",
-                "instant": true,
+                "expr": "query_vaults_totalWithdrawalFee / 100000000000",
                 "interval": "",
                 "legendFormat": "",
                 "refId": "A"
             }],
-            "timeFrom": null,
-            "timeShift": null,
-            "title": "Last Number of Contracts Sold",
-            "transformations": [{
-                    "id": "labelsToFields",
-                    "options": {
-                        "valueLabel": "value"
-                    }
-                },
-                {
-                    "id": "calculateField",
-                    "options": {
-                        "binary": {
-                            "left": "value",
-                            "operator": "/",
-                            "reducer": "sum",
-                            "right": "100000000"
-                        },
-                        "mode": "binary",
-                        "reduce": {
-                            "reducer": "sum"
-                        }
-                    }
-                },
-                {
-                    "id": "organize",
-                    "options": {
-                        "excludeByName": {
-                            "Time": true,
-                            "Value": true,
-                            "__name__": true,
-                            "endpoint": true,
-                            "instance": true,
-                            "job": true,
-                            "value": true,
-                            "vaultOptionTrades": true
-                        },
-                        "indexByName": {},
-                        "renameByName": {}
-                    }
-                }
-            ],
+            "title": "Total Withdraw Fee Earned",
             "transparent": true,
-            "type": "table"
+            "type": "stat"
         },
         {
             "datasource": null,
+            "description": "",
             "fieldConfig": {
                 "defaults": {
                     "color": {
                         "mode": "thresholds"
                     },
-                    "custom": {
-                        "align": "center",
-                        "filterable": false
-                    },
                     "mappings": [],
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
+                            "color": "green",
+                            "value": null
+                        }]
                     },
-                    "unit": "string"
+                    "unit": "ETH"
                 },
                 "overrides": []
             },
             "gridPos": {
-                "h": 2,
-                "w": 13,
-                "x": 11,
-                "y": 14
-            },
-            "id": 9,
-            "options": {
-                "showHeader": false
-            },
-            "pluginVersion": "7.5.4",
-            "targets": [{
-                "exemplar": true,
-                "expr": "query_vaultShortPositions_option",
-                "format": "table",
-                "instant": true,
-                "interval": "",
-                "legendFormat": "",
-                "refId": "A"
-            }],
-            "title": "Current Option",
-            "transformations": [{
-                "id": "organize",
-                "options": {
-                    "excludeByName": {
-                        "Time": true,
-                        "Value": true,
-                        "Value #A": true,
-                        "__name__": true,
-                        "endpoint": true,
-                        "instance": true,
-                        "job": true,
-                        "value": false,
-                        "vaultShortPositions": true
-                    },
-                    "indexByName": {},
-                    "renameByName": {}
-                }
-            }],
-            "transparent": true,
-            "type": "table"
-        },
-        {
-            "datasource": null,
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "custom": {
-                        "align": "center",
-                        "filterable": false
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [{
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "dateTimeFromNow"
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 2,
-                "w": 6,
+                "h": 4,
+                "w": 4,
                 "x": 0,
-                "y": 15
-            },
-            "id": 12,
-            "options": {
-                "showHeader": false
-            },
-            "pluginVersion": "7.5.4",
-            "targets": [{
-                    "exemplar": true,
-                    "expr": "query_vaultShortPositions_openedAt",
-                    "format": "table",
-                    "instant": true,
-                    "interval": "",
-                    "intervalFactor": 1,
-                    "legendFormat": "",
-                    "refId": "A"
-                },
-                {
-                    "hide": false,
-                    "refId": "B"
-                }
-            ],
-            "timeFrom": null,
-            "timeShift": null,
-            "title": "Opened",
-            "transformations": [{
-                    "id": "calculateField",
-                    "options": {
-                        "alias": "adjusted_time",
-                        "binary": {
-                            "left": "value",
-                            "operator": "*",
-                            "reducer": "sum",
-                            "right": "1000"
-                        },
-                        "mode": "binary",
-                        "reduce": {
-                            "reducer": "sum"
-                        }
-                    }
-                },
-                {
-                    "id": "calculateField",
-                    "options": {
-                        "alias": "",
-                        "binary": {
-                            "left": "adjusted_time",
-                            "operator": "-",
-                            "reducer": "sum",
-                            "right": "Time"
-                        },
-                        "mode": "binary",
-                        "reduce": {
-                            "reducer": "sum"
-                        }
-                    }
-                },
-                {
-                    "id": "organize",
-                    "options": {
-                        "excludeByName": {
-                            "Time": true,
-                            "Value": true,
-                            "__name__": true,
-                            "adjusted_time": false,
-                            "adjusted_time - Time": true,
-                            "endpoint": true,
-                            "instance": true,
-                            "job": true,
-                            "value": true,
-                            "vaultShortPositions": true
-                        },
-                        "indexByName": {
-                            "1618560000": 1,
-                            "Time": 0,
-                            "endpoint": 2,
-                            "instance": 3,
-                            "job": 4,
-                            "vaultShortPositions": 5
-                        },
-                        "renameByName": {
-                            "value": ""
-                        }
-                    }
-                }
-            ],
-            "transparent": true,
-            "type": "table"
-        },
-        {
-            "datasource": null,
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "custom": {
-                        "align": "center",
-                        "filterable": false
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [{
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "currencyUSD"
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 2,
-                "w": 5,
-                "x": 6,
-                "y": 15
-            },
-            "id": 4,
-            "options": {
-                "showHeader": false
-            },
-            "pluginVersion": "7.5.4",
-            "targets": [{
-                "exemplar": true,
-                "expr": "query_vaultShortPositions_strikePrice",
-                "format": "table",
-                "instant": true,
-                "interval": "",
-                "legendFormat": "",
-                "refId": "A"
-            }],
-            "timeFrom": null,
-            "timeShift": null,
-            "title": "Strike Price",
-            "transformations": [{
-                    "id": "calculateField",
-                    "options": {
-                        "binary": {
-                            "left": "value",
-                            "operator": "/",
-                            "reducer": "sum",
-                            "right": "100000000"
-                        },
-                        "mode": "binary",
-                        "reduce": {
-                            "reducer": "sum"
-                        }
-                    }
-                },
-                {
-                    "id": "filterFieldsByName",
-                    "options": {
-                        "include": {
-                            "names": [
-                                "value / 100000000"
-                            ]
-                        }
-                    }
-                }
-            ],
-            "transparent": true,
-            "type": "table"
-        },
-        {
-            "datasource": null,
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "custom": {
-                        "align": "center",
-                        "filterable": false
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [{
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "string"
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 2,
-                "w": 13,
-                "x": 11,
                 "y": 16
             },
-            "id": 11,
+            "id": 40,
             "options": {
-                "showHeader": false
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "auto"
             },
             "pluginVersion": "7.5.4",
             "targets": [{
                 "exemplar": true,
-                "expr": "query_vaultShortPositions_openTxhash",
-                "format": "table",
-                "instant": true,
+                "expr": "query_vaults_totalPremiumEarned / 100000000000",
                 "interval": "",
                 "legendFormat": "",
                 "refId": "A"
             }],
-            "title": "Current Option Open Open Tx",
-            "transformations": [{
-                "id": "organize",
-                "options": {
-                    "excludeByName": {
-                        "Time": true,
-                        "Value": true,
-                        "Value #A": true,
-                        "__name__": true,
-                        "endpoint": true,
-                        "instance": true,
-                        "job": true,
-                        "value": false,
-                        "vaultShortPositions": true
-                    },
-                    "indexByName": {},
-                    "renameByName": {}
-                }
-            }],
+            "title": "Total Premium Earned",
             "transparent": true,
-            "type": "table"
+            "type": "stat"
         },
         {
             "datasource": null,
+            "description": "",
             "fieldConfig": {
                 "defaults": {
                     "color": {
                         "mode": "thresholds"
                     },
-                    "custom": {
-                        "align": "center",
-                        "filterable": false
-                    },
+                    "decimals": 2,
                     "mappings": [],
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
+                            "color": "green",
+                            "value": null
+                        }]
                     },
-                    "unit": "ms"
+                    "unit": "percentunit"
                 },
                 "overrides": []
             },
             "gridPos": {
-                "h": 2,
-                "w": 11,
-                "x": 0,
-                "y": 17
+                "h": 4,
+                "w": 4,
+                "x": 4,
+                "y": 16
             },
-            "id": 2,
+            "id": 47,
             "options": {
-                "showHeader": false
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "auto"
             },
             "pluginVersion": "7.5.4",
             "targets": [{
                     "exemplar": true,
-                    "expr": "max(query_vaultShortPositions_expiry) by (value)",
-                    "format": "table",
-                    "instant": true,
+                    "expr": "(query_vaults_totalPremiumEarned / 100000000000)",
                     "interval": "",
-                    "intervalFactor": 1,
                     "legendFormat": "",
                     "refId": "A"
                 },
                 {
+                    "exemplar": true,
+                    "expr": "(query_balanceUpdates_balance / 10000000000)",
                     "hide": false,
+                    "interval": "",
+                    "legendFormat": "",
                     "refId": "B"
                 }
             ],
-            "timeFrom": null,
-            "timeShift": null,
-            "title": "Option Expiry",
+            "title": "Total Vault ROI",
             "transformations": [{
                     "id": "calculateField",
                     "options": {
-                        "alias": "adjusted_time",
                         "binary": {
-                            "left": "value",
+                            "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"theta-vaults\", vaults=\"0\"}",
                             "operator": "*",
                             "reducer": "sum",
-                            "right": "1000"
+                            "right": "{balanceUpdates=\"0\", endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"theta-vaults\"}"
                         },
                         "mode": "binary",
                         "reduce": {
                             "reducer": "sum"
-                        }
+                        },
+                        "replaceFields": true
                     }
                 },
                 {
                     "id": "calculateField",
                     "options": {
-                        "alias": "",
                         "binary": {
-                            "left": "adjusted_time",
-                            "operator": "-",
+                            "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"theta-vaults\", vaults=\"0\"} * {balanceUpdates=\"0\", endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"theta-vaults\"}",
+                            "operator": "/",
                             "reducer": "sum",
-                            "right": "Time"
+                            "right": "100000"
                         },
                         "mode": "binary",
                         "reduce": {
                             "reducer": "sum"
-                        }
-                    }
-                },
-                {
-                    "id": "organize",
-                    "options": {
-                        "excludeByName": {
-                            "Time": true,
-                            "Value": true,
-                            "__name__": true,
-                            "adjusted_time": true,
-                            "endpoint": false,
-                            "instance": true,
-                            "job": true,
-                            "value": true,
-                            "vaultShortPositions": true
                         },
-                        "indexByName": {
-                            "1618560000": 1,
-                            "Time": 0,
-                            "endpoint": 2,
-                            "instance": 3,
-                            "job": 4,
-                            "vaultShortPositions": 5
-                        },
-                        "renameByName": {
-                            "value": ""
-                        }
+                        "replaceFields": true
                     }
                 }
             ],
             "transparent": true,
-            "type": "table"
+            "type": "stat"
         }
     ],
     "schemaVersion": 27,
@@ -1026,7 +1011,7 @@
         "list": []
     },
     "time": {
-        "from": "now-24h",
+        "from": "now-1h",
         "to": "now"
     },
     "timepicker": {},
