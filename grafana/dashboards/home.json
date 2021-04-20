@@ -13,6 +13,8 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
+    "id": 1,
+    "iteration": 1618879312418,
     "links": [],
     "panels": [{
             "datasource": null,
@@ -76,30 +78,51 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                 "exemplar": true,
-                "expr": "query_vaults_symbol",
+                "expr": "query_vaults_symbol{job=\"$vault\"}",
                 "format": "table",
-                "instant": true,
+                "instant": false,
                 "interval": "",
                 "legendFormat": "",
                 "refId": "A"
             }],
             "transformations": [{
-                    "id": "labelsToFields",
+                    "id": "reduce",
                     "options": {
-                        "valueLabel": "value"
+                        "includeTimeField": false,
+                        "mode": "reduceFields",
+                        "reducers": [
+                            "max",
+                            "lastNotNull"
+                        ]
                     }
                 },
                 {
                     "id": "organize",
                     "options": {
                         "excludeByName": {
+                            "Field": true,
+                            "Max": true,
                             "Time": true,
                             "Value": true,
+                            "Value #A Last (not null)": true,
+                            "Value #A Max": true,
                             "__name__": true,
+                            "__name__ Last (not null)": true,
+                            "__name__ Max": true,
                             "endpoint": true,
+                            "endpoint Last (not null)": true,
+                            "endpoint Max": true,
                             "instance": true,
+                            "instance Last (not null)": true,
+                            "instance Max": true,
                             "job": true,
-                            "vaults": true
+                            "job Last (not null)": false,
+                            "job Max": true,
+                            "value Last (not null)": true,
+                            "value Max": true,
+                            "vaults": true,
+                            "vaults Last (not null)": true,
+                            "vaults Max": true
                         },
                         "indexByName": {},
                         "renameByName": {}
@@ -150,9 +173,9 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                 "exemplar": true,
-                "expr": "query_vaultShortPositions_option",
+                "expr": "query_vaultShortPositions_option{job=\"$vault\"}",
                 "format": "table",
-                "instant": true,
+                "instant": false,
                 "interval": "",
                 "legendFormat": "",
                 "refId": "A"
@@ -161,23 +184,51 @@
             "timeShift": null,
             "title": "Current Option",
             "transformations": [{
-                "id": "organize",
-                "options": {
-                    "excludeByName": {
-                        "Time": true,
-                        "Value": true,
-                        "Value #A": true,
-                        "__name__": true,
-                        "endpoint": true,
-                        "instance": true,
-                        "job": true,
-                        "value": false,
-                        "vaultShortPositions": true
-                    },
-                    "indexByName": {},
-                    "renameByName": {}
+                    "id": "reduce",
+                    "options": {
+                        "includeTimeField": false,
+                        "mode": "reduceFields",
+                        "reducers": [
+                            "max",
+                            "lastNotNull"
+                        ]
+                    }
+                },
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {
+                            "Field": true,
+                            "Max": true,
+                            "Time": true,
+                            "Value": true,
+                            "Value #A": true,
+                            "Value #A Last (not null)": true,
+                            "Value #A Max": true,
+                            "__name__": true,
+                            "__name__ Last (not null)": true,
+                            "__name__ Max": true,
+                            "endpoint": true,
+                            "endpoint Last (not null)": true,
+                            "endpoint Max": true,
+                            "instance": true,
+                            "instance Last (not null)": true,
+                            "instance Max": true,
+                            "job": true,
+                            "job Last (not null)": true,
+                            "job Max": true,
+                            "value": false,
+                            "value Last (not null)": false,
+                            "value Max": true,
+                            "vaultShortPositions": true,
+                            "vaultShortPositions Last (not null)": true,
+                            "vaultShortPositions Max": true
+                        },
+                        "indexByName": {},
+                        "renameByName": {}
+                    }
                 }
-            }],
+            ],
             "transparent": true,
             "type": "table"
         },
@@ -222,9 +273,9 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                 "exemplar": true,
-                "expr": "query_vaultOptionTrades_buyer",
+                "expr": "query_vaultOptionTrades_buyer{job=\"$vault\"}",
                 "format": "table",
-                "instant": true,
+                "instant": false,
                 "interval": "",
                 "legendFormat": "",
                 "refId": "A"
@@ -233,21 +284,49 @@
             "timeShift": null,
             "title": "Option Buyer",
             "transformations": [{
-                "id": "organize",
-                "options": {
-                    "excludeByName": {
-                        "Time": true,
-                        "Value": true,
-                        "__name__": true,
-                        "endpoint": true,
-                        "instance": true,
-                        "job": true,
-                        "vaultOptionTrades": true
-                    },
-                    "indexByName": {},
-                    "renameByName": {}
+                    "id": "reduce",
+                    "options": {
+                        "includeTimeField": false,
+                        "mode": "reduceFields",
+                        "reducers": [
+                            "max",
+                            "lastNotNull"
+                        ]
+                    }
+                },
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {
+                            "Time": true,
+                            "Value": true,
+                            "Value #A": false,
+                            "Value #A Last (not null)": true,
+                            "Value #A Max": true,
+                            "__name__": true,
+                            "__name__ Last (not null)": true,
+                            "__name__ Max": true,
+                            "endpoint": true,
+                            "endpoint Last (not null)": true,
+                            "endpoint Max": true,
+                            "instance": true,
+                            "instance Last (not null)": true,
+                            "instance Max": true,
+                            "job": true,
+                            "job Last (not null)": false,
+                            "job Max": true,
+                            "value": false,
+                            "value Last (not null)": true,
+                            "value Max": true,
+                            "vaultOptionTrades": true,
+                            "vaultOptionTrades Last (not null)": true,
+                            "vaultOptionTrades Max": true
+                        },
+                        "indexByName": {},
+                        "renameByName": {}
+                    }
                 }
-            }],
+            ],
             "transparent": true,
             "type": "table"
         },
@@ -295,8 +374,8 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                 "exemplar": true,
-                "expr": "(query_vaultShortPositions_expiry) - time()",
-                "instant": true,
+                "expr": "query_vaultShortPositions_expiry{job=\"$vault\"} - time()",
+                "instant": false,
                 "interval": "",
                 "legendFormat": "",
                 "refId": "A"
@@ -349,7 +428,7 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                 "exemplar": true,
-                "expr": "query_vaultShortPositions_strikePrice / 100000000",
+                "expr": "query_vaultShortPositions_strikePrice{job=\"$vault\"} / 100000000",
                 "interval": "",
                 "legendFormat": "",
                 "refId": "A"
@@ -423,14 +502,9 @@
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
+                            "color": "green",
+                            "value": null
+                        }]
                     },
                     "unit": "percentunit"
                 },
@@ -461,7 +535,7 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                     "exemplar": true,
-                    "expr": "query_vaultShortPositions_strikePrice / 100000000",
+                    "expr": "query_vaultShortPositions_strikePrice{job=\"$vault\"} / 1000000000000",
                     "interval": "",
                     "legendFormat": "",
                     "refId": "A"
@@ -480,7 +554,7 @@
                     "id": "calculateField",
                     "options": {
                         "binary": {
-                            "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"theta-vaults\", vaultShortPositions=\"0\"}",
+                            "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"$vault\", vaultShortPositions=\"0\"}",
                             "operator": "/",
                             "reducer": "sum",
                             "right": "crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}"
@@ -495,7 +569,7 @@
                     "id": "calculateField",
                     "options": {
                         "binary": {
-                            "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"theta-vaults\", vaultShortPositions=\"0\"} / crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}",
+                            "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"$vault\", vaultShortPositions=\"0\"} / crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}",
                             "operator": "-",
                             "reducer": "sum",
                             "right": "1"
@@ -512,8 +586,8 @@
                         "excludeByName": {
                             "Time": true,
                             "crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}": true,
-                            "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"theta-vaults\", vaultShortPositions=\"0\"}": true,
-                            "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"theta-vaults\", vaultShortPositions=\"0\"} / crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}": true
+                            "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"$vault\", vaultShortPositions=\"0\"}": true,
+                            "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"$vault\", vaultShortPositions=\"0\"} / crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}": true
                         },
                         "indexByName": {},
                         "renameByName": {}
@@ -530,7 +604,7 @@
                     "color": {
                         "mode": "thresholds"
                     },
-                    "decimals": 3,
+                    "decimals": 2,
                     "mappings": [],
                     "thresholds": {
                         "mode": "absolute",
@@ -568,7 +642,7 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                     "exemplar": true,
-                    "expr": "(query_balanceUpdates_balance / 10000000000)",
+                    "expr": "query_vaults_vaultAccounts_totalDeposits{job=\"$vault\"} / 10000000000",
                     "interval": "",
                     "legendFormat": "",
                     "refId": "A"
@@ -582,26 +656,41 @@
                     "refId": "B"
                 }
             ],
+            "timeFrom": null,
+            "timeShift": null,
             "title": "TVL",
             "transformations": [{
-                "id": "calculateField",
-                "options": {
-                    "binary": {
-                        "left": "{balanceUpdates=\"0\", endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"theta-vaults\"}",
-                        "operator": "*",
-                        "reducer": "sum",
-                        "right": "crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}"
-                    },
-                    "mode": "binary",
-                    "reduce": {
-                        "include": [
-                            "Time"
-                        ],
-                        "reducer": "sum"
-                    },
-                    "replaceFields": true
+                    "id": "calculateField",
+                    "options": {
+                        "binary": {
+                            "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"rETH-THETA\", vaultAccounts=\"0\", vaults=\"0\"}",
+                            "operator": "*",
+                            "reducer": "sum",
+                            "right": "crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}"
+                        },
+                        "mode": "binary",
+                        "reduce": {
+                            "include": [
+                                "Time"
+                            ],
+                            "reducer": "sum"
+                        },
+                        "replaceFields": true
+                    }
+                },
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {
+                            "Time": true,
+                            "crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}": true,
+                            "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"rETH-THETA\", vaultAccounts=\"0\", vaults=\"0\"}": false
+                        },
+                        "indexByName": {},
+                        "renameByName": {}
+                    }
                 }
-            }],
+            ],
             "transparent": true,
             "type": "stat"
         },
@@ -648,7 +737,7 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                 "exemplar": true,
-                "expr": "query_vaults_numDepositors",
+                "expr": "query_vaults_numDepositors{job=\"$vault\"}",
                 "format": "time_series",
                 "instant": false,
                 "interval": "",
@@ -730,7 +819,7 @@
                 },
                 {
                     "exemplar": true,
-                    "expr": "query_vaultShortPositions_strikePrice / 100000000",
+                    "expr": "query_vaultShortPositions_strikePrice{job=\"$vault\"} / 100000000",
                     "hide": false,
                     "interval": "",
                     "legendFormat": "Strike Price",
@@ -793,7 +882,7 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                 "exemplar": true,
-                "expr": "query_balanceUpdates_balance / 10000000000",
+                "expr": "query_balanceUpdates_balance{job=\"$vault\"} / 10000000000",
                 "instant": true,
                 "interval": "",
                 "legendFormat": "",
@@ -852,7 +941,7 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                 "exemplar": true,
-                "expr": "query_vaults_totalWithdrawalFee / 100000000000",
+                "expr": "query_vaults_totalWithdrawalFee{job=\"$vault\"} / 100000000000",
                 "interval": "",
                 "legendFormat": "",
                 "refId": "A"
@@ -906,7 +995,7 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                 "exemplar": true,
-                "expr": "query_vaults_totalPremiumEarned / 100000000000",
+                "expr": "query_vaults_totalPremiumEarned{job=\"$vault\"} / 100000000000",
                 "interval": "",
                 "legendFormat": "",
                 "refId": "A"
@@ -923,16 +1012,20 @@
                     "color": {
                         "mode": "thresholds"
                     },
-                    "decimals": 2,
                     "mappings": [],
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                            "color": "green",
-                            "value": null
-                        }]
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
                     },
-                    "unit": "percentunit"
+                    "unit": "percent"
                 },
                 "overrides": []
             },
@@ -960,55 +1053,31 @@
             },
             "pluginVersion": "7.5.4",
             "targets": [{
-                    "exemplar": true,
-                    "expr": "(query_vaults_totalPremiumEarned / 100000000000)",
-                    "interval": "",
-                    "legendFormat": "",
-                    "refId": "A"
-                },
-                {
-                    "exemplar": true,
-                    "expr": "(query_balanceUpdates_balance / 10000000000)",
-                    "hide": false,
-                    "interval": "",
-                    "legendFormat": "",
-                    "refId": "B"
-                }
-            ],
+                "exemplar": true,
+                "expr": "(query_vaults_totalPremiumEarned{job=\"$vault\"} / 1000000000000)",
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+            }],
+            "timeFrom": null,
+            "timeShift": null,
             "title": "Total Vault ROI",
             "transformations": [{
-                    "id": "calculateField",
-                    "options": {
-                        "binary": {
-                            "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"theta-vaults\", vaults=\"0\"}",
-                            "operator": "*",
-                            "reducer": "sum",
-                            "right": "{balanceUpdates=\"0\", endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"theta-vaults\"}"
-                        },
-                        "mode": "binary",
-                        "reduce": {
-                            "reducer": "sum"
-                        },
-                        "replaceFields": true
-                    }
-                },
-                {
-                    "id": "calculateField",
-                    "options": {
-                        "binary": {
-                            "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"theta-vaults\", vaults=\"0\"} * {balanceUpdates=\"0\", endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"theta-vaults\"}",
-                            "operator": "/",
-                            "reducer": "sum",
-                            "right": "100000"
-                        },
-                        "mode": "binary",
-                        "reduce": {
-                            "reducer": "sum"
-                        },
-                        "replaceFields": true
-                    }
+                "id": "calculateField",
+                "options": {
+                    "binary": {
+                        "left": " {endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"$vault\", vaults=\"0\"}",
+                        "operator": "*",
+                        "reducer": "sum",
+                        "right": "{balanceUpdates=\"0\", endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"$vault\"}"
+                    },
+                    "mode": "binary",
+                    "reduce": {
+                        "reducer": "sum"
+                    },
+                    "replaceFields": true
                 }
-            ],
+            }],
             "transparent": true,
             "type": "stat"
         }
@@ -1017,7 +1086,41 @@
     "style": "dark",
     "tags": [],
     "templating": {
-        "list": []
+        "list": [{
+            "allValue": null,
+            "current": {
+                "selected": true,
+                "text": "rETH-THETA",
+                "value": "rETH-THETA"
+            },
+            "description": null,
+            "error": null,
+            "hide": 0,
+            "includeAll": false,
+            "label": null,
+            "multi": false,
+            "name": "vault",
+            "options": [{
+                    "selected": true,
+                    "text": "rETH-THETA",
+                    "value": "rETH-THETA"
+                },
+                {
+                    "selected": false,
+                    "text": "rETH-THETA-Kovan",
+                    "value": "rETH-THETA-Kovan"
+                },
+                {
+                    "selected": false,
+                    "text": "rBTC-THETA-Kovan",
+                    "value": "rBTC-THETA-Kovan"
+                }
+            ],
+            "query": "rETH-THETA,  rETH-THETA-Kovan,  rBTC-THETA-Kovan",
+            "queryValue": "",
+            "skipUrlSync": false,
+            "type": "custom"
+        }]
     },
     "time": {
         "from": "now-1h",
@@ -1027,5 +1130,5 @@
     "timezone": "",
     "title": "Theta Vault",
     "uid": "hH2ap5XGz",
-    "version": 1
+    "version": 4
 }

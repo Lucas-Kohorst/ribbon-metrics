@@ -9,7 +9,7 @@ services:
             ports: 
                 - 9199:9199
             networks:
-                - theta
+                - theta-network
 
         grafana:
             container_name: grafana
@@ -26,7 +26,7 @@ services:
             ports: 
                 - 3000:3000
             networks:
-                - theta
+                - theta-network
 
         prometheus:
             container_name: prometheus
@@ -40,7 +40,7 @@ services:
             ports:
                  - 9090:9090
             networks:
-                - theta
+                - theta-network
 
         cryptowat:
             container_name: cryptowat
@@ -51,8 +51,8 @@ services:
             ports: 
                 - 9745:9745
             networks: 
-                - theta
+                - theta-network
 
 networks:
-  theta:
+  theta-network:
     driver: bridge

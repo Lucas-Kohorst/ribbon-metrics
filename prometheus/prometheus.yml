@@ -3,7 +3,7 @@ scrape_configs:
     static_configs:
       - targets: ['cryptowat:9745']
 
-  - job_name: "theta-vaults"
+  - job_name: "rETH-THETA"
     metrics_path: "/query"
     params:
       endpoint:
@@ -11,15 +11,26 @@ scrape_configs:
       query:
         - |
           {
-            vaults(first: 1) {
-              id
+            vaults(where: { symbol: "rETH-THETA" }) {
               name
               symbol
               totalPremiumEarned
               totalWithdrawalFee
               numDepositors
+              vaultAccounts{
+                totalDeposits
+                totalYieldEarned
+              }
             }
-            vaultShortPositions(first:1, orderBy:expiry, orderDirection:desc){
+            vaultShortPositions {
+              vault(
+                where: { 
+                  symbol: "rETH-THETA"
+                }
+              ) {
+                symbol
+                id
+              }
               strikePrice
               option
               strikePrice
@@ -30,30 +41,147 @@ scrape_configs:
               closeTxhash
               expiry
             }
-            balanceUpdates(first:1){
-              balance
-              yieldEarned
-            }
             vaultOptionTrades{
+              vault(
+                  where: { 
+                    symbol: "rETH-THETA"
+                  }
+                ) {
+                  symbol
+                  id
+                }
               premium
               sellAmount
               buyer
               optionToken
             }
-            instrumentPositions {
-              id
-              instrumentAddress
-              account
-              cost
-              exercised
-              amount
-              optionTypes
-              strikePrices
-              venues
-              expiry
-              exerciseProfit
-            }
+            balanceUpdates(first:1){
+              vault(where: { symbol: "rETH-THETA" }){symbol}
+                balance
+                yieldEarned
+              }
           }
     static_configs:
       - targets: ["graphql-exporter:9199"] # graphql_exporter address:port
 
+  - job_name: "rETH-THETA-Kovan"
+    metrics_path: "/query"
+    params:
+      endpoint:
+        ["https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance-kovan"]
+      query:
+        - |
+          {
+            vaults(where: { symbol: "rETH-THETA" }) {
+              name
+              symbol
+              totalPremiumEarned
+              totalWithdrawalFee
+              numDepositors
+              vaultAccounts{
+                totalDeposits
+                totalYieldEarned
+              }
+            }
+            vaultShortPositions {
+              vault(
+                where: { 
+                  symbol: "rETH-THETA"
+                }
+              ) {
+                symbol
+                id
+              }
+              strikePrice
+              option
+              strikePrice
+              openedAt
+              closedAt
+              premiumEarned
+              openTxhash
+              closeTxhash
+              expiry
+            }
+            vaultOptionTrades{
+              vault(
+                  where: { 
+                    symbol: "rETH-THETA"
+                  }
+                ) {
+                  symbol
+                  id
+                }
+              premium
+              sellAmount
+              buyer
+              optionToken
+            }
+            balanceUpdates(first:1){
+              vault(where: { symbol: "rETH-THETA" }){symbol}
+                balance
+                yieldEarned
+              }
+          }
+    static_configs:
+      - targets: ["graphql-exporter:9199"] # graphql_exporter address:port
+
+  - job_name: "rBTC-THETA-Kovan"
+    metrics_path: "/query"
+    params:
+      endpoint:
+        ["https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance-kovan"]
+      query:
+        - |
+          {
+            vaults(where: { symbol: "rETH-THETA" }) {
+              name
+              symbol
+              totalPremiumEarned
+              totalWithdrawalFee
+              numDepositors
+              vaultAccounts{
+                totalDeposits
+                totalYieldEarned
+              }
+            }
+            vaultShortPositions {
+              vault(
+                where: { 
+                  symbol: "rETH-THETA"
+                }
+              ) {
+                symbol
+                id
+              }
+              strikePrice
+              option
+              strikePrice
+              openedAt
+              closedAt
+              premiumEarned
+              openTxhash
+              closeTxhash
+              expiry
+            }
+            vaultOptionTrades{
+              vault(
+                  where: { 
+                    symbol: "rETH-THETA"
+                  }
+                ) {
+                  symbol
+                  id
+                }
+              premium
+              sellAmount
+              buyer
+              optionToken
+            }
+          balanceUpdates(first:1){
+              vault(where: { symbol: "rETH-THETA" }){symbol}
+                balance
+                yieldEarned
+              }
+          }
+    static_configs:
+      - targets: ["graphql-exporter:9199"] # graphql_exporter address:port
