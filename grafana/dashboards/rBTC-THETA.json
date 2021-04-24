@@ -13,7 +13,8 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "iteration": 1619229427661,
+    "id": 2,
+    "iteration": 1619233075396,
     "links": [],
     "panels": [{
             "datasource": null,
@@ -481,12 +482,12 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                 "exemplar": true,
-                "expr": "crypto_currency{pair=\"ethusd\", exchange=\"kraken\"}",
+                "expr": "crypto_currency{pair=\"btcusd\", exchange=\"kraken\"}",
                 "interval": "",
                 "legendFormat": "",
                 "refId": "A"
             }],
-            "title": "ETH Price",
+            "title": "BTC Price",
             "transparent": true,
             "type": "stat"
         },
@@ -541,7 +542,7 @@
                 },
                 {
                     "exemplar": true,
-                    "expr": "(crypto_currency{pair=\"ethusd\", exchange=\"kraken\"})",
+                    "expr": "(crypto_currency{pair=\"btcusd\", exchange=\"kraken\"})",
                     "hide": false,
                     "interval": "",
                     "legendFormat": "",
@@ -553,10 +554,10 @@
                     "id": "calculateField",
                     "options": {
                         "binary": {
-                            "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"rETH-THETA\", vaultShortPositions=\"0\"}",
+                            "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"rBTC-THETA\", vaultShortPositions=\"0\"}",
                             "operator": "/",
                             "reducer": "sum",
-                            "right": "crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}"
+                            "right": "crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"btcusd\"}"
                         },
                         "mode": "binary",
                         "reduce": {
@@ -569,7 +570,7 @@
                     "id": "calculateField",
                     "options": {
                         "binary": {
-                            "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"rETH-THETA\", vaultShortPositions=\"0\"} / crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}",
+                            "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"rBTC-THETA\", vaultShortPositions=\"0\"} / crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"btcusd\"}",
                             "operator": "-",
                             "reducer": "sum",
                             "right": "1"
@@ -914,7 +915,7 @@
                             }
                         ]
                     },
-                    "unit": "ETH"
+                    "unit": "currencyBTC"
                 },
                 "overrides": []
             },
@@ -940,7 +941,7 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                 "exemplar": true,
-                "expr": "query_balanceUpdates_balance{job=\"$vault\"} / 10000000000",
+                "expr": "query_balanceUpdates_balance{job=\"$vault\"} / 1000000000",
                 "instant": true,
                 "interval": "",
                 "legendFormat": "",
@@ -1026,7 +1027,7 @@
                             "value": null
                         }]
                     },
-                    "unit": "ETH"
+                    "unit": "currencyBTC"
                 },
                 "overrides": []
             },
@@ -1158,7 +1159,7 @@
                             "value": null
                         }]
                     },
-                    "unit": "ETH"
+                    "unit": "currencyBTC"
                 },
                 "overrides": []
             },
@@ -1204,9 +1205,9 @@
         "list": [{
             "allValue": null,
             "current": {
-                "selected": true,
-                "text": "rETH-THETA",
-                "value": "rETH-THETA"
+                "selected": false,
+                "text": "rBTC-THETA",
+                "value": "rBTC-THETA"
             },
             "description": null,
             "error": null,
@@ -1216,27 +1217,11 @@
             "multi": false,
             "name": "vault",
             "options": [{
-                    "selected": true,
-                    "text": "rETH-THETA",
-                    "value": "rETH-THETA"
-                },
-                {
-                    "selected": false,
-                    "text": "rBTC-THETA",
-                    "value": "rBTC-THETA"
-                },
-                {
-                    "selected": false,
-                    "text": "rETH-THETA-Kovan",
-                    "value": "rETH-THETA-Kovan"
-                },
-                {
-                    "selected": false,
-                    "text": "rBTC-THETA-Kovan",
-                    "value": "rBTC-THETA-Kovan"
-                }
-            ],
-            "query": "rETH-THETA,  rBTC-THETA, rETH-THETA-Kovan,  rBTC-THETA-Kovan",
+                "selected": true,
+                "text": "rBTC-THETA",
+                "value": "rBTC-THETA"
+            }],
+            "query": "rBTC-THETA",
             "queryValue": "",
             "skipUrlSync": false,
             "type": "custom"
@@ -1248,7 +1233,7 @@
     },
     "timepicker": {},
     "timezone": "",
-    "title": "Theta Vault",
-    "uid": "hH2ap5XGz",
-    "version": 15
+    "title": "rBTC-THETA",
+    "uid": "hH2ap5XGz1",
+    "version": 4
 }
