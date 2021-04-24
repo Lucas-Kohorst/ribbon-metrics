@@ -47,7 +47,7 @@ services:
             image: nbarrientos/cryptowat_exporter
             hostname: cryptowat
             environment: 
-                - CRYPTOWAT_PAIRS=ethusd
+                - CRYPTOWAT_PAIRS=ethusd,btcusd
             ports: 
                 - 9745:9745
             networks: 
