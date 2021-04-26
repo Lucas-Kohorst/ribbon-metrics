@@ -13,7 +13,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "iteration": 1619233001955,
+    "iteration": 1619434761487,
     "links": [],
     "panels": [{
             "datasource": null,
@@ -602,20 +602,66 @@
             "fieldConfig": {
                 "defaults": {
                     "color": {
-                        "mode": "thresholds"
+                        "mode": "palette-classic"
                     },
-                    "decimals": 2,
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "graph": false,
+                            "legend": false,
+                            "tooltip": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "spanNulls": true
+                    },
                     "mappings": [],
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
-                            "color": "green",
-                            "value": null
-                        }]
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
                     },
                     "unit": "short"
                 },
-                "overrides": []
+                "overrides": [{
+                    "__systemRef": "hideSeriesFrom",
+                    "matcher": {
+                        "id": "byNames",
+                        "options": {
+                            "mode": "exclude",
+                            "names": [
+                                "tvl_eth"
+                            ],
+                            "prefix": "All except:",
+                            "readOnly": true
+                        }
+                    },
+                    "properties": [{
+                        "id": "custom.hideFrom",
+                        "value": {
+                            "graph": true,
+                            "legend": false,
+                            "tooltip": false
+                        }
+                    }]
+                }]
             },
             "gridPos": {
                 "h": 6,
@@ -625,24 +671,20 @@
             },
             "id": 52,
             "options": {
-                "colorMode": "value",
-                "graphMode": "area",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": [
-                        "lastNotNull"
-                    ],
-                    "fields": "",
-                    "values": false
+                "graph": {},
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
                 },
-                "text": {},
-                "textMode": "auto"
+                "tooltipOptions": {
+                    "mode": "single"
+                }
             },
             "pluginVersion": "7.5.4",
             "targets": [{
                     "exemplar": true,
-                    "expr": "query_vaults_vaultAccounts_totalDeposits{job=\"$vault\"} / 10000000000",
+                    "expr": "query_vaults_totalBalance{job=\"$vault\"}  / 1000000000000000000",
                     "instant": false,
                     "interval": "",
                     "legendFormat": "",
@@ -663,39 +705,35 @@
             "transformations": [{
                     "id": "calculateField",
                     "options": {
-                        "alias": "tvl",
+                        "alias": "tvl_usd",
                         "binary": {
-                            "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"rETH-THETA\", vaultAccounts=\"0\", vaults=\"0\"}",
+                            "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"rETH-THETA\", vaults=\"0\"}",
                             "operator": "*",
                             "reducer": "sum",
                             "right": "crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}"
                         },
                         "mode": "binary",
                         "reduce": {
-                            "include": [
-                                "Time"
-                            ],
                             "reducer": "sum"
-                        },
-                        "replaceFields": false
+                        }
                     }
                 },
                 {
                     "id": "organize",
                     "options": {
                         "excludeByName": {
-                            "Time": true,
-                            "crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}": true,
-                            "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"$vault\", vaultAccounts=\"0\", vaults=\"0\"}": false,
-                            "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"rETH-THETA\", vaultAccounts=\"0\", vaults=\"0\"}": true
+                            "Time": false,
+                            "crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}": true
                         },
                         "indexByName": {},
-                        "renameByName": {}
+                        "renameByName": {
+                            "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"rETH-THETA\", vaults=\"0\"}": "tvl_eth"
+                        }
                     }
                 }
             ],
             "transparent": true,
-            "type": "stat"
+            "type": "timeseries"
         },
         {
             "datasource": null,
@@ -771,7 +809,7 @@
             ],
             "timeFrom": null,
             "timeShift": null,
-            "title": "Until 100M",
+            "title": "Until 100M (USD)",
             "transformations": [{
                     "id": "calculateField",
                     "options": {
@@ -898,7 +936,7 @@
                     "color": {
                         "mode": "continuous-GrYlRd"
                     },
-                    "decimals": 5,
+                    "decimals": 2,
                     "mappings": [],
                     "max": 1000,
                     "min": 2,
@@ -940,7 +978,7 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                 "exemplar": true,
-                "expr": "query_balanceUpdates_balance{job=\"$vault\"} / 1000000000",
+                "expr": "query_vaults_totalBalance{job=\"$vault\"} / 1000000000000000000",
                 "instant": true,
                 "interval": "",
                 "legendFormat": "",
@@ -1085,7 +1123,7 @@
                             }
                         ]
                     },
-                    "unit": "percent"
+                    "unit": "percentunit"
                 },
                 "overrides": []
             },
@@ -1113,31 +1151,53 @@
             },
             "pluginVersion": "7.5.4",
             "targets": [{
-                "exemplar": true,
-                "expr": "(query_vaults_totalPremiumEarned{job=\"$vault\"} / 10000000000000000000)",
-                "interval": "",
-                "legendFormat": "",
-                "refId": "A"
-            }],
+                    "exemplar": true,
+                    "expr": "(query_vaults_totalPremiumEarned{job=\"$vault\"} / 1000000000000000000)",
+                    "interval": "",
+                    "legendFormat": "premium",
+                    "refId": "A"
+                },
+                {
+                    "exemplar": true,
+                    "expr": "(query_vaults_totalBalance{job=\"$vault\"}  / 1000000000000000000)",
+                    "hide": false,
+                    "interval": "",
+                    "legendFormat": "balance",
+                    "refId": "B"
+                }
+            ],
             "timeFrom": null,
             "timeShift": null,
             "title": "Total Vault ROI",
             "transformations": [{
-                "id": "calculateField",
-                "options": {
-                    "binary": {
-                        "left": " {endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"$vault\", vaults=\"0\"}",
-                        "operator": "*",
-                        "reducer": "sum",
-                        "right": "{balanceUpdates=\"0\", endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"$vault\"}"
-                    },
-                    "mode": "binary",
-                    "reduce": {
-                        "reducer": "sum"
-                    },
-                    "replaceFields": true
+                    "id": "calculateField",
+                    "options": {
+                        "alias": "roi",
+                        "binary": {
+                            "left": "premium",
+                            "operator": "/",
+                            "reducer": "sum",
+                            "right": "balance"
+                        },
+                        "mode": "binary",
+                        "reduce": {
+                            "reducer": "sum"
+                        }
+                    }
+                },
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {
+                            "Time": true,
+                            "balance": true,
+                            "premium": true
+                        },
+                        "indexByName": {},
+                        "renameByName": {}
+                    }
                 }
-            }],
+            ],
             "transparent": true,
             "type": "stat"
         },
@@ -1227,12 +1287,12 @@
         }]
     },
     "time": {
-        "from": "now-24h",
+        "from": "now-5m",
         "to": "now"
     },
     "timepicker": {},
     "timezone": "",
     "title": "rETH-THETA",
     "uid": "hH2ap5XGz",
-    "version": 2
+    "version": 3
 }

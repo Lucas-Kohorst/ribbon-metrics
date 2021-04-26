@@ -17,6 +17,7 @@ scrape_configs:
               totalPremiumEarned
               totalWithdrawalFee
               numDepositors
+              totalBalance
               vaultAccounts{
                 totalDeposits
                 totalYieldEarned
@@ -87,6 +88,7 @@ scrape_configs:
               totalPremiumEarned
               totalWithdrawalFee
               numDepositors
+              totalBalance
               vaultAccounts{
                 totalDeposits
                 totalYieldEarned
