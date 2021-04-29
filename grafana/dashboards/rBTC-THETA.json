@@ -13,7 +13,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "iteration": 1619435078923,
+    "iteration": 1619734060453,
     "links": [],
     "panels": [{
             "datasource": null,
@@ -679,7 +679,7 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                     "exemplar": true,
-                    "expr": "query_vaults_totalBalance{job=\"$vault\"} / 1000000000",
+                    "expr": "query_vaults_totalBalance{job=\"$vault\"} / 100000000",
                     "instant": false,
                     "interval": "",
                     "legendFormat": "",
@@ -788,7 +788,7 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                     "exemplar": true,
-                    "expr": "query_vaults_vaultAccounts_totalDeposits{job=\"$vault\"} / 1000000000",
+                    "expr": "query_vaults_totalBalance{job=\"$vault\"} / 100000000",
                     "instant": false,
                     "interval": "",
                     "legendFormat": "",
@@ -807,39 +807,21 @@
             "timeShift": null,
             "title": "Until 100M (USD)",
             "transformations": [{
-                    "id": "calculateField",
-                    "options": {
-                        "alias": "tvl",
-                        "binary": {
-                            "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"rBTC-THETA\", vaultAccounts=\"0\", vaults=\"0\"}",
-                            "operator": "*",
-                            "reducer": "sum",
-                            "right": "crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"btcusd\"}"
-                        },
-                        "mode": "binary",
-                        "reduce": {
-                            "include": [
-                                "Time"
-                            ],
-                            "reducer": "sum"
-                        },
-                        "replaceFields": true
-                    }
-                },
-                {
-                    "id": "organize",
-                    "options": {
-                        "excludeByName": {
-                            "Time": true,
-                            "crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}": true,
-                            "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"$vault\", vaultAccounts=\"0\", vaults=\"0\"}": false,
-                            "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"rETH-THETA\", vaultAccounts=\"0\", vaults=\"0\"}": true
-                        },
-                        "indexByName": {},
-                        "renameByName": {}
-                    }
+                "id": "calculateField",
+                "options": {
+                    "binary": {
+                        "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"rBTC-THETA\", vaults=\"0\"}",
+                        "operator": "*",
+                        "reducer": "sum",
+                        "right": "crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"btcusd\"}"
+                    },
+                    "mode": "binary",
+                    "reduce": {
+                        "reducer": "sum"
+                    },
+                    "replaceFields": true
                 }
-            ],
+            }],
             "transparent": true,
             "type": "gauge"
         },
@@ -934,7 +916,7 @@
                     },
                     "decimals": 5,
                     "mappings": [],
-                    "max": 1000,
+                    "max": 100,
                     "min": 2,
                     "thresholds": {
                         "mode": "percentage",
@@ -974,7 +956,7 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                 "exemplar": true,
-                "expr": "query_vaults_totalBalance{job=\"$vault\"} / 1000000000",
+                "expr": "query_vaults_totalBalance{job=\"$vault\"} / 100000000",
                 "instant": true,
                 "interval": "",
                 "legendFormat": "",
@@ -1089,7 +1071,7 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                 "exemplar": true,
-                "expr": "query_vaults_totalPremiumEarned{job=\"$vault\"} / 1000000000000000000",
+                "expr": "query_vaults_totalPremiumEarned{job=\"$vault\"} / 100000000",
                 "interval": "",
                 "legendFormat": "",
                 "refId": "A"
@@ -1119,7 +1101,7 @@
                             }
                         ]
                     },
-                    "unit": "percentunit"
+                    "unit": "percent"
                 },
                 "overrides": []
             },
@@ -1148,14 +1130,14 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                     "exemplar": true,
-                    "expr": "(query_vaults_totalPremiumEarned{job=\"$vault\"} / 1000000000)",
+                    "expr": "(query_vaults_totalPremiumEarned{job=\"$vault\"} / 100000000)",
                     "interval": "",
                     "legendFormat": "premium",
                     "refId": "A"
                 },
                 {
                     "exemplar": true,
-                    "expr": "(query_vaults_totalBalance{job=\"$vault\"}  / 1000000000)",
+                    "expr": "query_vaults_totalBalance{job=\"$vault\"}  / 100000000",
                     "hide": false,
                     "interval": "",
                     "legendFormat": "balance",
@@ -1290,5 +1272,5 @@
     "timezone": "",
     "title": "rBTC-THETA",
     "uid": "hH2ap5XGz1",
-    "version": 7
+    "version": 8
 }

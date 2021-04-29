@@ -105,7 +105,7 @@ scrape_configs:
                 symbol
                 id
               }
-              strikePrice
+              strikePrice 
               option
               openedAt
               closedAt

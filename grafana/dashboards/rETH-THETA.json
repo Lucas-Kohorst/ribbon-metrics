@@ -13,7 +13,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "iteration": 1619434761487,
+    "iteration": 1619615305878,
     "links": [],
     "panels": [{
             "datasource": null,
@@ -647,7 +647,7 @@
                         "options": {
                             "mode": "exclude",
                             "names": [
-                                "tvl_eth"
+                                "tvl_usd"
                             ],
                             "prefix": "All except:",
                             "readOnly": true
@@ -715,7 +715,8 @@
                         "mode": "binary",
                         "reduce": {
                             "reducer": "sum"
-                        }
+                        },
+                        "replaceFields": false
                     }
                 },
                 {
@@ -792,7 +793,7 @@
             "pluginVersion": "7.5.4",
             "targets": [{
                     "exemplar": true,
-                    "expr": "query_vaults_vaultAccounts_totalDeposits{job=\"$vault\"} / 10000000000",
+                    "expr": "query_vaults_totalBalance{job=\"$vault\"}  / 1000000000000000000",
                     "instant": false,
                     "interval": "",
                     "legendFormat": "",
@@ -815,7 +816,7 @@
                     "options": {
                         "alias": "tvl",
                         "binary": {
-                            "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"rETH-THETA\", vaultAccounts=\"0\", vaults=\"0\"}",
+                            "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"rETH-THETA\", vaults=\"0\"}",
                             "operator": "*",
                             "reducer": "sum",
                             "right": "crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}"
@@ -827,7 +828,7 @@
                             ],
                             "reducer": "sum"
                         },
-                        "replaceFields": false
+                        "replaceFields": true
                     }
                 },
                 {
@@ -938,7 +939,7 @@
                     },
                     "decimals": 2,
                     "mappings": [],
-                    "max": 1000,
+                    "max": 5000,
                     "min": 2,
                     "thresholds": {
                         "mode": "percentage",
@@ -1294,5 +1295,5 @@
     "timezone": "",
     "title": "rETH-THETA",
     "uid": "hH2ap5XGz",
-    "version": 3
+    "version": 5
 }
