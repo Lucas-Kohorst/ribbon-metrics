@@ -1,146 +1,230 @@
-scrape_configs:
-  - job_name: cryptowat
-    static_configs:
-      - targets: ['cryptowat:9745']
+  scrape_configs:
+    - job_name: cryptowat
+      static_configs:
+        - targets: ['cryptowat:9745']
 
-  - job_name: "rETH-THETA"
-    metrics_path: "/query"
-    params:
-      endpoint:
-        ["https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance"]
-      query:
-        - |
-          {
-            vaults(where: { symbol: "rETH-THETA" }) {
-              name
-              symbol
-              totalPremiumEarned
-              totalWithdrawalFee
-              numDepositors
-              totalBalance
-              vaultAccounts{
-                totalDeposits
-                totalYieldEarned
-              }
-            }
-            vaultShortPositions(
-              where: {
-                vault: "0x0fabaf48bbf864a3947bdd0ba9d764791a60467a"
-              }
-              orderBy:expiry 
-              orderDirection: desc
-            )  {
-              vault {
+    - job_name: deribit_exporter
+      static_configs:
+        - targets: ["deribit_exporter:9000"]
+
+    - job_name: "rETH-THETA"
+      metrics_path: "/query"
+      params:
+        endpoint:
+          ["https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance"]
+        query:
+          - |
+            {
+              vaults(where: { symbol: "rETH-THETA" }) {
+                name
                 symbol
                 id
-              }
-              strikePrice
-              option
-              openedAt
-              closedAt
-              premiumEarned
-              openTxhash 
-              closeTxhash
-              expiry
-            }
-            vaultOptionTrades(
-              where: {
-                vault: "0x0fabaf48bbf864a3947bdd0ba9d764791a60467a"
-              }
-              orderBy:timestamp 
-              orderDirection: desc
-            ) {
-              vault {
-                  symbol
-                  id
+                totalPremiumEarned
+                totalWithdrawalFee
+                numDepositors
+                totalBalance
+                vaultAccounts{
+                  totalDeposits
+                  totalYieldEarned
                 }
-              premium
-              sellAmount
-              buyer
-              optionToken
-            }
-            balanceUpdates(
-              first:1
-               where: {
-                vault: "0x0fabaf48bbf864a3947bdd0ba9d764791a60467a"
               }
-              orderBy:timestamp 
-              orderDirection: desc
-            ){
-                balance
-                yieldEarned
-              }
-          }
-    static_configs:
-      - targets: ["graphql-exporter:9199"] # graphql_exporter address:port
-
-  - job_name: "rBTC-THETA"
-    metrics_path: "/query"
-    params:
-      endpoint:
-        ["https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance"]
-      query:
-        - |
-          {
-            vaults(where: { symbol: "rBTC-THETA" }) {
-              name
-              symbol
-              totalPremiumEarned
-              totalWithdrawalFee
-              numDepositors
-              totalBalance
-              vaultAccounts{
-                totalDeposits
-                totalYieldEarned
-              }
-            }
-            vaultShortPositions(
-              where: {
-                vault: "0x8b5876f5b0bf64056a89aa7e97511644758c3e8c"
-              }
+              vaultShortPositions(
+                where: {
+                  vault: "0x0fabaf48bbf864a3947bdd0ba9d764791a60467a"
+                }
                 orderBy:expiry 
                 orderDirection: desc
-            )  {
-              vault {
-                symbol
-                id
-              }
-              strikePrice 
-              option
-              openedAt
-              closedAt
-              premiumEarned
-              openTxhash 
-              closeTxhash
-              expiry
-            }
-            vaultOptionTrades(
-              where: {
-                vault: "0x8b5876f5b0bf64056a89aa7e97511644758c3e8c"
-              }
-              orderBy:timestamp 
-              orderDirection: desc
-            ) {
-              vault {
+              )  {
+                vault {
                   symbol
                   id
                 }
-              premium
-              sellAmount
-              buyer
-              optionToken
+                strikePrice
+                option
+                openedAt
+                closedAt
+                premiumEarned
+                openTxhash 
+                closeTxhash
+                expiry
+                loss
+                withdrawAmount
+              }
+              vaultOptionTrades(
+                where: {
+                  vault: "0x0fabaf48bbf864a3947bdd0ba9d764791a60467a"
+                }
+                orderBy:timestamp 
+                orderDirection: desc
+              ) {
+                vault {
+                    symbol
+                    id
+                  }
+                premium
+                sellAmount
+                buyer
+                optionToken
+              }
+              balanceUpdates(
+                first:1
+                where: {
+                  vault: "0x0fabaf48bbf864a3947bdd0ba9d764791a60467a"
+                }
+                orderBy:timestamp 
+                orderDirection: desc
+              ){
+                  balance
+                  yieldEarned
+                }
             }
-            balanceUpdates(
-              first: 1
-              where: {
-                vault: "0x8b5876f5b0bf64056a89aa7e97511644758c3e8c"
+      static_configs:
+        - targets: ["graphql-exporter:9199"] # graphql_exporter address:port
+
+    - job_name: "rBTC-THETA"
+      metrics_path: "/query"
+      params:
+        endpoint:
+          ["https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance"]
+        query:
+          - |
+            {
+              vaults(where: { symbol: "rBTC-THETA" }) {
+                name
+                symbol
+                id
+                totalPremiumEarned
+                totalWithdrawalFee
+                numDepositors
+                totalBalance
+                vaultAccounts{
+                  totalDeposits
+                  totalYieldEarned
+                }
               }
-              orderBy:timestamp 
-              orderDirection: desc
-            ){
-                balance
-                yieldEarned
+              vaultShortPositions(
+                where: {
+                  vault: "0x8b5876f5b0bf64056a89aa7e97511644758c3e8c"
+                }
+                  orderBy:expiry 
+                  orderDirection: desc
+              )  {
+                vault {
+                  symbol
+                  id
+                }
+                strikePrice 
+                option
+                openedAt
+                closedAt
+                premiumEarned
+                openTxhash 
+                closeTxhash
+                expiry
+                loss
+                withdrawAmount
               }
-          }
-    static_configs:
-      - targets: ["graphql-exporter:9199"] # graphql_exporter address:port
+              vaultOptionTrades(
+                where: {
+                  vault: "0x8b5876f5b0bf64056a89aa7e97511644758c3e8c"
+                }
+                orderBy:timestamp 
+                orderDirection: desc
+              ) {
+                vault {
+                    symbol
+                    id
+                  }
+                premium
+                sellAmount
+                buyer
+                optionToken
+              }
+              balanceUpdates(
+                first: 1
+                where: {
+                  vault: "0x8b5876f5b0bf64056a89aa7e97511644758c3e8c"
+                }
+                orderBy:timestamp 
+                orderDirection: desc
+              ){
+                  balance
+                  yieldEarned
+                }
+            }
+      static_configs:
+        - targets: ["graphql-exporter:9199"] # graphql_exporter address:port
+
+    - job_name: "rUSDC-ETH-P-THETA"
+      metrics_path: "/query"
+      params:
+        endpoint:
+          ["https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance"]
+        query:
+          - |
+            {
+              vaults(where: { symbol: "rUSDC-ETH-P-THETA" }) {
+                name
+                symbol
+                id
+                totalPremiumEarned
+                totalWithdrawalFee
+                numDepositors
+                totalBalance
+                vaultAccounts{
+                  totalDeposits
+                  totalYieldEarned
+                }
+              }
+              vaultShortPositions(
+                where: {
+                  vault: "0x16772a7f4a3ca291c21b8ace76f9332ddffbb5ef"
+                }
+                orderBy:expiry 
+                orderDirection: desc
+              )  {
+                vault {
+                  symbol
+                  id
+                }
+                strikePrice
+                option
+                openedAt
+                closedAt
+                premiumEarned
+                openTxhash 
+                closeTxhash
+                expiry
+                loss
+                withdrawAmount
+              }
+              vaultOptionTrades(
+                where: {
+                  vault: "0x16772a7f4a3ca291c21b8ace76f9332ddffbb5ef"
+                }
+                orderBy:timestamp 
+                orderDirection: desc
+              ) {
+                vault {
+                    symbol
+                    id
+                  }
+                premium
+                sellAmount
+                buyer
+                optionToken
+              }
+              balanceUpdates(
+                first:1
+                where: {
+                  vault: "0x16772a7f4a3ca291c21b8ace76f9332ddffbb5ef"
+                }
+                orderBy:timestamp 
+                orderDirection: desc
+              ){
+                  balance
+                  yieldEarned
+                }
+            }
+      static_configs:
+        - targets: ["graphql-exporter:9199"] # graphql_exporter address:port

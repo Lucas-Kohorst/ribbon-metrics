@@ -11,6 +11,19 @@ services:
             networks:
                 - theta-network
 
+        deribit-exporter:
+          #image: quay.io/ricardbejarano/graphql_exporter
+            build:
+                context: ./prometheus
+                dockerfile: Dockerfile
+            container_name: deribit_exporter    
+            hostname: deribit_exporter
+            restart: always
+            ports: 
+                - 9000:9000
+            networks:
+                - theta-network
+
         grafana:
             container_name: grafana
             image: grafana/grafana:latest
