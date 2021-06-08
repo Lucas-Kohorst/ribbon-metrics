@@ -1,0 +1,360 @@
+{
+    "annotations": {
+        "list": [{
+            "builtIn": 1,
+            "datasource": "-- Grafana --",
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "type": "dashboard"
+        }]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": 8,
+    "links": [],
+    "panels": [{
+            "datasource": "mysql",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "graph": false,
+                            "legend": false,
+                            "tooltip": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "spanNulls": true
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "short"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "id": 6,
+            "options": {
+                "graph": {},
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                },
+                "tooltipOptions": {
+                    "mode": "single"
+                }
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "format": "time_series",
+                "group": [{
+                    "params": [
+                        "$__interval",
+                        "none"
+                    ],
+                    "type": "time"
+                }],
+                "hide": false,
+                "metricColumn": "name",
+                "rawQuery": true,
+                "rawSql": "SELECT\n  $__timeGroupAlias(timestamp,$__interval),\n  name AS metric,\n  sum(sellAmount / 100000000) AS sellAmount\nFROM options\nWHERE\n  $__timeFilter(timestamp)\nGROUP BY 1,2\nORDER BY $__timeGroup(timestamp,$__interval)",
+                "refId": "A",
+                "select": [
+                    [{
+                            "params": [
+                                "sellAmount"
+                            ],
+                            "type": "column"
+                        },
+                        {
+                            "params": [
+                                "sum"
+                            ],
+                            "type": "aggregate"
+                        },
+                        {
+                            "params": [
+                                "sellAmount"
+                            ],
+                            "type": "alias"
+                        }
+                    ]
+                ],
+                "table": "options",
+                "timeColumn": "timestamp",
+                "timeColumnType": "datetime",
+                "where": [{
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                }]
+            }],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Contract Volume Per Week",
+            "transformations": [],
+            "type": "timeseries"
+        },
+        {
+            "datasource": "mysql",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "string"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 13,
+                "w": 24,
+                "x": 0,
+                "y": 9
+            },
+            "id": 2,
+            "options": {
+                "showHeader": true,
+                "sortBy": [{
+                    "desc": true,
+                    "displayName": "timestamp"
+                }]
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "format": "table",
+                "group": [],
+                "metricColumn": "premium",
+                "rawQuery": true,
+                "rawSql": "SELECT\n  name, timestamp, optionToken, txhash, premium / 1000000000000000000 as premium, sellAmount / 100000000 as sellAmount\nFROM options where name = \"Ribbon ETH Theta Vault\" order by timestamp DESC",
+                "refId": "A",
+                "select": [
+                    [{
+                        "params": [
+                            "id"
+                        ],
+                        "type": "column"
+                    }]
+                ],
+                "table": "options",
+                "timeColumn": "id",
+                "timeColumnType": "int",
+                "where": [{
+                    "name": "$__unixEpochFilter",
+                    "params": [],
+                    "type": "macro"
+                }]
+            }],
+            "title": "Options Sold (rETH-THETA)",
+            "type": "table"
+        },
+        {
+            "datasource": "mysql",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "string"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 13,
+                "w": 24,
+                "x": 0,
+                "y": 22
+            },
+            "id": 3,
+            "options": {
+                "showHeader": true,
+                "sortBy": [{
+                    "desc": true,
+                    "displayName": "timestamp"
+                }]
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "format": "table",
+                "group": [],
+                "metricColumn": "premium",
+                "rawQuery": true,
+                "rawSql": "SELECT\n  name, timestamp, optionToken, txhash, premium / 100000000 as premium, sellAmount / 100000000 as sellAmount\nFROM options where name = \"Ribbon BTC Theta Vault\" order by timestamp DESC",
+                "refId": "A",
+                "select": [
+                    [{
+                        "params": [
+                            "id"
+                        ],
+                        "type": "column"
+                    }]
+                ],
+                "table": "options",
+                "timeColumn": "id",
+                "timeColumnType": "int",
+                "where": [{
+                    "name": "$__unixEpochFilter",
+                    "params": [],
+                    "type": "macro"
+                }]
+            }],
+            "title": "Options Sold (rBTC-THETA)",
+            "type": "table"
+        },
+        {
+            "datasource": "mysql",
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "string"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 13,
+                "w": 24,
+                "x": 0,
+                "y": 35
+            },
+            "id": 4,
+            "options": {
+                "showHeader": true,
+                "sortBy": [{
+                    "desc": true,
+                    "displayName": "timestamp"
+                }]
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "format": "table",
+                "group": [],
+                "metricColumn": "premium",
+                "rawQuery": true,
+                "rawSql": "SELECT\n  name, timestamp, optionToken, txhash, premium / 1000000 as premium, sellAmount / 100000000 as sellAmount\nFROM options where name = \"Ribbon USDC Theta Vault ETH Put\" order by timestamp DESC",
+                "refId": "A",
+                "select": [
+                    [{
+                        "params": [
+                            "id"
+                        ],
+                        "type": "column"
+                    }]
+                ],
+                "table": "options",
+                "timeColumn": "id",
+                "timeColumnType": "int",
+                "where": [{
+                    "name": "$__unixEpochFilter",
+                    "params": [],
+                    "type": "macro"
+                }]
+            }],
+            "title": "Options Sold (T-USDC-P-ETH)",
+            "type": "table"
+        }
+    ],
+    "refresh": false,
+    "schemaVersion": 27,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+        "list": []
+    },
+    "time": {
+        "from": "now/y",
+        "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Options Sold",
+    "uid": "0Sgt6f6Gz",
+    "version": 6
+}

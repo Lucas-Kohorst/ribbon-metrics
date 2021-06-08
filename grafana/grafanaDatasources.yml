@@ -1,8 +1,15 @@
 apiVersion: 1
 deleteDatasources: []
 datasources:
-  - access: proxy
+  - name: Prometheus
+    access: proxy
     isDefault: true
-    name: Prometheus
     type: prometheus
     url: http://prometheus:9090/
+  - name: mysql
+    type: mysql
+    url: host.docker.internal:3306
+    database: ribbon
+    user: ribbon
+    secureJsonData:
+      password: password

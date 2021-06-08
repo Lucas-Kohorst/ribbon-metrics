@@ -13,7 +13,6 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 7,
     "links": [],
     "panels": [{
             "datasource": null,
@@ -1065,6 +1064,313 @@
             "transformations": [],
             "transparent": true,
             "type": "piechart"
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 6,
+                "y": 17
+            },
+            "hiddenSeries": false,
+            "id": 22,
+            "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.4",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [{
+                    "exemplar": true,
+                    "expr": "query_vaults_totalBalance{job=\"rETH-THETA\"} / 1000000000000000000",
+                    "interval": "",
+                    "legendFormat": "ribbon_reth",
+                    "refId": "A"
+                },
+                {
+                    "exemplar": true,
+                    "expr": "deribit_open_interest_compared_to_vault{vault=\"rETH-THETA\"}",
+                    "hide": false,
+                    "interval": "",
+                    "legendFormat": "deribit_reth",
+                    "refId": "B"
+                },
+                {
+                    "exemplar": true,
+                    "expr": "query_vaults_totalBalance{job=\"rBTC-THETA\"} / 100000000  ",
+                    "hide": false,
+                    "interval": "",
+                    "legendFormat": "ribbon_rBTC",
+                    "refId": "C"
+                },
+                {
+                    "exemplar": true,
+                    "expr": "deribit_open_interest_compared_to_vault{vault=\"rBTC-THETA\"}",
+                    "hide": false,
+                    "interval": "",
+                    "legendFormat": "deribit_rbtc",
+                    "refId": "D"
+                },
+                {
+                    "exemplar": true,
+                    "expr": "deribit_open_interest_compared_to_vault{vault=\"rUSDC-ETH-P-THETA\"}",
+                    "hide": false,
+                    "interval": "",
+                    "legendFormat": "deribit_rusdc_eth_p_theta",
+                    "refId": "E"
+                },
+                {
+                    "exemplar": true,
+                    "expr": "query_vaults_totalBalance{job=\"rUSDC-ETH-P-THETA\"} / 1000000000",
+                    "hide": false,
+                    "interval": "",
+                    "legendFormat": "ribbon_rusdc_eth_p_theta",
+                    "refId": "F"
+                },
+                {
+                    "exemplar": true,
+                    "expr": "crypto_currency{pair=\"ethusd\", exchange=\"kraken\"}",
+                    "hide": false,
+                    "interval": "",
+                    "legendFormat": "eth",
+                    "refId": "G"
+                },
+                {
+                    "exemplar": true,
+                    "expr": "crypto_currency{pair=\"btcusd\", exchange=\"kraken\"}",
+                    "hide": false,
+                    "interval": "",
+                    "legendFormat": "btc",
+                    "refId": "H"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Ribbon v. Deribit Total OI",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [{
+                    "id": "calculateField",
+                    "options": {
+                        "alias": "ribbon_reth_contracts",
+                        "binary": {
+                            "left": "ribbon_reth",
+                            "operator": "*",
+                            "reducer": "sum",
+                            "right": "eth"
+                        },
+                        "mode": "binary",
+                        "reduce": {
+                            "reducer": "sum"
+                        }
+                    }
+                },
+                {
+                    "id": "calculateField",
+                    "options": {
+                        "alias": "ribbon_btc_contracts",
+                        "binary": {
+                            "left": "ribbon_rBTC",
+                            "operator": "*",
+                            "reducer": "sum",
+                            "right": "btc"
+                        },
+                        "mode": "binary",
+                        "reduce": {
+                            "reducer": "sum"
+                        }
+                    }
+                },
+                {
+                    "id": "calculateField",
+                    "options": {
+                        "alias": "deribit_btc_contracts",
+                        "binary": {
+                            "left": "deribit_rbtc",
+                            "operator": "*",
+                            "reducer": "sum",
+                            "right": "btc"
+                        },
+                        "mode": "binary",
+                        "reduce": {
+                            "reducer": "sum"
+                        }
+                    }
+                },
+                {
+                    "id": "calculateField",
+                    "options": {
+                        "alias": "deribit_eth_contracts",
+                        "binary": {
+                            "left": "deribit_reth",
+                            "operator": "*",
+                            "reducer": "sum",
+                            "right": "eth"
+                        },
+                        "mode": "binary",
+                        "reduce": {
+                            "reducer": "sum"
+                        }
+                    }
+                },
+                {
+                    "id": "calculateField",
+                    "options": {
+                        "alias": "deribit_oi",
+                        "binary": {
+                            "left": "deribit_btc_contracts",
+                            "operator": "+",
+                            "reducer": "sum",
+                            "right": "deribit_eth_contracts"
+                        },
+                        "mode": "binary",
+                        "reduce": {
+                            "reducer": "sum"
+                        }
+                    }
+                },
+                {
+                    "id": "calculateField",
+                    "options": {
+                        "alias": "deribit",
+                        "binary": {
+                            "left": "deribit_oi",
+                            "operator": "+",
+                            "reducer": "sum",
+                            "right": "deribit_rusdc_eth_p_theta"
+                        },
+                        "mode": "binary",
+                        "reduce": {
+                            "reducer": "sum"
+                        },
+                        "replaceFields": false
+                    }
+                },
+                {
+                    "id": "calculateField",
+                    "options": {
+                        "alias": "ribbon_oi",
+                        "binary": {
+                            "left": "ribbon_reth_contracts",
+                            "operator": "+",
+                            "reducer": "sum",
+                            "right": "ribbon_btc_contracts"
+                        },
+                        "mode": "binary",
+                        "reduce": {
+                            "reducer": "sum"
+                        }
+                    }
+                },
+                {
+                    "id": "calculateField",
+                    "options": {
+                        "alias": "ribbon",
+                        "binary": {
+                            "left": "ribbon_oi",
+                            "operator": "+",
+                            "reducer": "sum",
+                            "right": "ribbon_rusdc_eth_p_theta"
+                        },
+                        "mode": "binary",
+                        "reduce": {
+                            "reducer": "sum"
+                        }
+                    }
+                },
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {
+                            "Time": false,
+                            "btc": true,
+                            "deribit": false,
+                            "deribit_btc_contracts": true,
+                            "deribit_eth_contracts": true,
+                            "deribit_oi": true,
+                            "deribit_rbtc": true,
+                            "deribit_reth": true,
+                            "deribit_rusdc_eth_p_theta": true,
+                            "eth": true,
+                            "ribbon": false,
+                            "ribbon_btc_contracts": true,
+                            "ribbon_oi": true,
+                            "ribbon_rBTC": true,
+                            "ribbon_reth": true,
+                            "ribbon_reth_contracts": true,
+                            "ribbon_rusdc_eth_p_theta": true
+                        },
+                        "indexByName": {},
+                        "renameByName": {}
+                    }
+                }
+            ],
+            "transparent": true,
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [{
+                    "$$hashKey": "object:58",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "$$hashKey": "object:59",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
         }
     ],
     "schemaVersion": 27,
@@ -1081,5 +1387,5 @@
     "timezone": "",
     "title": "Ribbon vs. Deribit",
     "uid": "hUMhdaqMk",
-    "version": 2
+    "version": 3
 }
