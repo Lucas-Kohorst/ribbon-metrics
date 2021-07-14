@@ -1078,9 +1078,9 @@
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
-                "h": 8,
-                "w": 12,
-                "x": 6,
+                "h": 9,
+                "w": 8,
+                "x": 0,
                 "y": 17
             },
             "hiddenSeries": false,
@@ -1177,7 +1177,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Ribbon v. Deribit Total OI",
+            "title": "Ribbon v. Deribit Total OI Given Strike",
             "tooltip": {
                 "shared": true,
                 "sort": 0,
@@ -1371,6 +1371,372 @@
                 "align": false,
                 "alignLevel": null
             }
+        },
+        {
+            "datasource": "mysql",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "bars",
+                        "fillOpacity": 100,
+                        "gradientMode": "hue",
+                        "hideFrom": {
+                            "graph": false,
+                            "legend": false,
+                            "tooltip": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 0,
+                        "pointSize": 1,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "spanNulls": true
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "short"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 8,
+                "x": 8,
+                "y": 17
+            },
+            "id": 26,
+            "options": {
+                "graph": {},
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                },
+                "tooltipOptions": {
+                    "mode": "single"
+                }
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "SELECT\n  strike as metric,\n  venue,\n  oi as value\nFROM\n  ribbon.deribit_ribbon_skew\ngroup by strike, venue, oi\norder by strike",
+                "refId": "A",
+                "select": [
+                    [{
+                        "params": [
+                            "id"
+                        ],
+                        "type": "column"
+                    }]
+                ],
+                "table": "options",
+                "timeColumn": "timestamp",
+                "timeColumnType": "timestamp",
+                "where": [{
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                }]
+            }],
+            "title": "Open Interest with Ribbon BTC Calls",
+            "transparent": true,
+            "type": "timeseries"
+        },
+        {
+            "datasource": "mysql",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "bars",
+                        "fillOpacity": 100,
+                        "gradientMode": "hue",
+                        "hideFrom": {
+                            "graph": false,
+                            "legend": false,
+                            "tooltip": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 0,
+                        "pointSize": 1,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "spanNulls": true
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "short"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 8,
+                "x": 16,
+                "y": 17
+            },
+            "id": 27,
+            "options": {
+                "graph": {},
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                },
+                "tooltipOptions": {
+                    "mode": "single"
+                }
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "SELECT\n  strike as metric,\n  venue,\n  oi as value\nFROM\n  ribbon.deribit_skew\ngroup by strike, venue, oi\norder by strike",
+                "refId": "A",
+                "select": [
+                    [{
+                        "params": [
+                            "id"
+                        ],
+                        "type": "column"
+                    }]
+                ],
+                "table": "options",
+                "timeColumn": "timestamp",
+                "timeColumnType": "timestamp",
+                "where": [{
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                }]
+            }],
+            "title": "Open Interest Deribit BTC Calls",
+            "transparent": true,
+            "type": "timeseries"
+        },
+        {
+            "datasource": null,
+            "description": "Total OI (calls and puts) for BTC or ETH that Ribbon makes up of Deribit",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "percentunit"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 7,
+                "w": 8,
+                "x": 0,
+                "y": 26
+            },
+            "id": 29,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "auto"
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                    "exemplar": true,
+                    "expr": "deribit__total_open_interest{vault=\"rBTC-THETA\"}",
+                    "interval": "",
+                    "legendFormat": "deribit_btc",
+                    "refId": "A"
+                },
+                {
+                    "exemplar": true,
+                    "expr": "query_vaults_totalBalance{job=\"rBTC-THETA\"} / 100000000",
+                    "hide": false,
+                    "interval": "",
+                    "legendFormat": "ribbon_btc",
+                    "refId": "B"
+                },
+                {
+                    "exemplar": true,
+                    "expr": "deribit__total_open_interest{vault=\"rETH-THETA\"}",
+                    "hide": false,
+                    "interval": "",
+                    "legendFormat": "deribit_eth",
+                    "refId": "C"
+                },
+                {
+                    "exemplar": true,
+                    "expr": "query_vaults_totalBalance{job=\"rETH-THETA\"} / 1000000000000000000",
+                    "hide": false,
+                    "interval": "",
+                    "legendFormat": "ribbon_eth_call",
+                    "refId": "D"
+                },
+                {
+                    "exemplar": true,
+                    "expr": "query_vaults_totalBalance{job=\"rUSDC-ETH-P-THETA\"} / 1000000",
+                    "hide": false,
+                    "interval": "",
+                    "legendFormat": "ribbon_eth_put",
+                    "refId": "E"
+                },
+                {
+                    "exemplar": true,
+                    "expr": "crypto_currency{pair=\"ethusd\"}",
+                    "hide": false,
+                    "interval": "",
+                    "legendFormat": "eth_price",
+                    "refId": "F"
+                }
+            ],
+            "title": "% Total OI RIbbon vs. Deribit",
+            "transformations": [{
+                    "id": "calculateField",
+                    "options": {
+                        "alias": "BTC",
+                        "binary": {
+                            "left": "ribbon_btc",
+                            "operator": "/",
+                            "reducer": "sum",
+                            "right": "deribit_btc"
+                        },
+                        "mode": "binary",
+                        "reduce": {
+                            "reducer": "sum"
+                        },
+                        "replaceFields": false
+                    }
+                },
+                {
+                    "id": "calculateField",
+                    "options": {
+                        "binary": {
+                            "left": "ribbon_eth_put",
+                            "operator": "/",
+                            "reducer": "sum",
+                            "right": "eth_price"
+                        },
+                        "mode": "binary",
+                        "reduce": {
+                            "reducer": "sum"
+                        }
+                    }
+                },
+                {
+                    "id": "calculateField",
+                    "options": {
+                        "binary": {
+                            "left": "ribbon_eth_call",
+                            "operator": "+",
+                            "reducer": "sum",
+                            "right": "ribbon_eth_put / eth_price"
+                        },
+                        "mode": "binary",
+                        "reduce": {
+                            "reducer": "sum"
+                        }
+                    }
+                },
+                {
+                    "id": "calculateField",
+                    "options": {
+                        "alias": "ETH",
+                        "binary": {
+                            "left": "ribbon_eth_call + ribbon_eth_put / eth_price",
+                            "operator": "/",
+                            "reducer": "sum",
+                            "right": "deribit_eth"
+                        },
+                        "mode": "binary",
+                        "reduce": {
+                            "reducer": "sum"
+                        }
+                    }
+                },
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {
+                            "Time": true,
+                            "deribit_btc": true,
+                            "deribit_eth": true,
+                            "eth_price": true,
+                            "ribbon_btc": true,
+                            "ribbon_eth_call": true,
+                            "ribbon_eth_call + ribbon_eth_put / eth_price": true,
+                            "ribbon_eth_put": true,
+                            "ribbon_eth_put / eth_price": true
+                        },
+                        "indexByName": {},
+                        "renameByName": {}
+                    }
+                }
+            ],
+            "transparent": true,
+            "type": "stat"
         }
     ],
     "schemaVersion": 27,
@@ -1380,12 +1746,12 @@
         "list": []
     },
     "time": {
-        "from": "now-6h",
+        "from": "now-5m",
         "to": "now"
     },
     "timepicker": {},
     "timezone": "",
     "title": "Ribbon vs. Deribit",
     "uid": "hUMhdaqMk",
-    "version": 3
+    "version": 8
 }

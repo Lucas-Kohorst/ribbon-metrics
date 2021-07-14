@@ -43,7 +43,7 @@ class OptionData:
             optionToken = option["optionToken"]
             name = option["vault"]["name"]
             option["timestamp"]
-            premium = float(option["premium"])
+            premium = float(option["premium"]) / 10e18
             sellAmount = float(option["sellAmount"])
 
             val = (timestamp, buyer, txhash, optionToken, premium, name, sellAmount)
