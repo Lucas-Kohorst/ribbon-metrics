@@ -228,3 +228,76 @@
             }
       static_configs:
         - targets: ["graphql-exporter:9199"] # graphql_exporter address:port
+    - job_name: "ryvUSDC-ETH-P-THETA"
+      metrics_path: "/query"
+      params:
+        endpoint:
+          ["https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance"]
+        query:
+          - |
+            {
+              vaults(where: { symbol: "ryvUSDC-ETH-P-THETA" }) {
+                name
+                symbol
+                id
+                totalPremiumEarned
+                totalWithdrawalFee
+                numDepositors
+                totalBalance
+                vaultAccounts{
+                  totalDeposits
+                  totalYieldEarned
+                }
+              }
+              vaultShortPositions(
+                where: {
+                  vault: "0x8fe74471f198e426e96be65f40eed1f8ba96e54f"
+                }
+                orderBy:expiry 
+                orderDirection: desc
+              )  {
+                vault {
+                  symbol
+                  id
+                }
+                strikePrice
+                option
+                openedAt
+                closedAt
+                premiumEarned
+                openTxhash 
+                closeTxhash
+                expiry
+                loss
+                withdrawAmount
+              }
+              vaultOptionTrades(
+                where: {
+                  vault: "0x8fe74471f198e426e96be65f40eed1f8ba96e54f"
+                }
+                orderBy:timestamp 
+                orderDirection: desc
+              ) {
+                vault {
+                    symbol
+                    id
+                  }
+                premium
+                sellAmount
+                buyer
+                optionToken
+              }
+              balanceUpdates(
+                first:1
+                where: {
+                  vault: "0x8fe74471f198e426e96be65f40eed1f8ba96e54f"
+                }
+                orderBy:timestamp 
+                orderDirection: desc
+              ){
+                  balance
+                  yieldEarned
+                }
+            }
+      static_configs:
+        - targets: ["graphql-exporter:9199"] # graphql_exporter address:port

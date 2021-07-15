@@ -1401,6 +1401,8 @@
                         "spanNulls": true
                     },
                     "mappings": [],
+                    "max": 2000,
+                    "min": 0,
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
@@ -1493,6 +1495,8 @@
                         "spanNulls": true
                     },
                     "mappings": [],
+                    "max": 2000,
+                    "min": 0,
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [{
@@ -1753,5 +1757,5 @@
     "timezone": "",
     "title": "Ribbon vs. Deribit",
     "uid": "hUMhdaqMk",
-    "version": 8
+    "version": 1
 }

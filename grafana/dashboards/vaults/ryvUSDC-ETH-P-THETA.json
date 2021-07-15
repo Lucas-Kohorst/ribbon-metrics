@@ -1,0 +1,1306 @@
+{
+    "annotations": {
+        "list": [{
+            "builtIn": 1,
+            "datasource": "-- Grafana --",
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "type": "dashboard"
+        }]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": 7,
+    "iteration": 1626306886595,
+    "links": [],
+    "panels": [{
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "unit": "short"
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 6,
+                "w": 4,
+                "x": 0,
+                "y": 0
+            },
+            "hiddenSeries": false,
+            "id": 52,
+            "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.4",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [{
+                "exemplar": true,
+                "expr": "query_vaults_totalBalance{job=\"$vault\"}  / 1000000",
+                "instant": false,
+                "interval": "",
+                "legendFormat": "tvl_usd",
+                "refId": "A"
+            }],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "TVL",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [],
+            "transparent": true,
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [{
+                    "$$hashKey": "object:58",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "$$hashKey": "object:59",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "decimals": 2,
+                    "mappings": [],
+                    "max": 100000000,
+                    "thresholds": {
+                        "mode": "percentage",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 0
+                            },
+                            {
+                                "color": "#EAB839",
+                                "value": 25
+                            },
+                            {
+                                "color": "green",
+                                "value": 75
+                            }
+                        ]
+                    },
+                    "unit": "short"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 6,
+                "w": 4,
+                "x": 4,
+                "y": 0
+            },
+            "id": 53,
+            "options": {
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "text": {}
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "exemplar": true,
+                "expr": "query_vaults_totalBalance{job=\"$vault\"}  / 1000000",
+                "instant": false,
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+            }],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Until 100M (USD)",
+            "transformations": [],
+            "transparent": true,
+            "type": "gauge"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "align": "center",
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 2,
+                "w": 16,
+                "x": 8,
+                "y": 0
+            },
+            "id": 50,
+            "options": {
+                "showHeader": false
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "exemplar": true,
+                "expr": "query_vaults_symbol{job=\"$vault\"}",
+                "format": "table",
+                "instant": false,
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+            }],
+            "transformations": [{
+                    "id": "reduce",
+                    "options": {
+                        "includeTimeField": false,
+                        "mode": "reduceFields",
+                        "reducers": [
+                            "max",
+                            "lastNotNull"
+                        ]
+                    }
+                },
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {
+                            "Field": true,
+                            "Max": true,
+                            "Time": true,
+                            "Value": true,
+                            "Value #A Last (not null)": true,
+                            "Value #A Max": true,
+                            "__name__": true,
+                            "__name__ Last (not null)": true,
+                            "__name__ Max": true,
+                            "endpoint": true,
+                            "endpoint Last (not null)": true,
+                            "endpoint Max": true,
+                            "instance": true,
+                            "instance Last (not null)": true,
+                            "instance Max": true,
+                            "job": true,
+                            "job Last (not null)": false,
+                            "job Max": true,
+                            "value Last (not null)": true,
+                            "value Max": true,
+                            "vaults": true,
+                            "vaults Last (not null)": true,
+                            "vaults Max": true
+                        },
+                        "indexByName": {},
+                        "renameByName": {}
+                    }
+                }
+            ],
+            "transparent": true,
+            "type": "table"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "align": "center",
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "string"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 2,
+                "w": 8,
+                "x": 8,
+                "y": 2
+            },
+            "id": 9,
+            "options": {
+                "showHeader": false
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "exemplar": true,
+                "expr": "query_vaultShortPositions_option{job=\"$vault\"}",
+                "format": "table",
+                "instant": false,
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+            }],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Current Option",
+            "transformations": [{
+                    "id": "reduce",
+                    "options": {
+                        "includeTimeField": false,
+                        "mode": "reduceFields",
+                        "reducers": [
+                            "max",
+                            "lastNotNull"
+                        ]
+                    }
+                },
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {
+                            "Field": true,
+                            "Max": true,
+                            "Time": true,
+                            "Value": true,
+                            "Value #A": true,
+                            "Value #A Last (not null)": true,
+                            "Value #A Max": true,
+                            "__name__": true,
+                            "__name__ Last (not null)": true,
+                            "__name__ Max": true,
+                            "endpoint": true,
+                            "endpoint Last (not null)": true,
+                            "endpoint Max": true,
+                            "instance": true,
+                            "instance Last (not null)": true,
+                            "instance Max": true,
+                            "job": true,
+                            "job Last (not null)": true,
+                            "job Max": true,
+                            "value": false,
+                            "value Last (not null)": false,
+                            "value Max": true,
+                            "vaultShortPositions": true,
+                            "vaultShortPositions Last (not null)": true,
+                            "vaultShortPositions Max": true
+                        },
+                        "indexByName": {},
+                        "renameByName": {}
+                    }
+                }
+            ],
+            "transparent": true,
+            "type": "table"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "align": "center",
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "string"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 2,
+                "w": 8,
+                "x": 16,
+                "y": 2
+            },
+            "id": 32,
+            "options": {
+                "showHeader": false
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "exemplar": true,
+                "expr": "query_vaultOptionTrades_buyer{job=\"$vault\"}",
+                "format": "table",
+                "instant": false,
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+            }],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Option Buyer",
+            "transformations": [{
+                    "id": "reduce",
+                    "options": {
+                        "includeTimeField": false,
+                        "mode": "reduceFields",
+                        "reducers": [
+                            "max",
+                            "lastNotNull"
+                        ]
+                    }
+                },
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {
+                            "Time": true,
+                            "Value": true,
+                            "Value #A": false,
+                            "Value #A Last (not null)": true,
+                            "Value #A Max": true,
+                            "__name__": true,
+                            "__name__ Last (not null)": true,
+                            "__name__ Max": true,
+                            "endpoint": true,
+                            "endpoint Last (not null)": true,
+                            "endpoint Max": true,
+                            "instance": true,
+                            "instance Last (not null)": true,
+                            "instance Max": true,
+                            "job": true,
+                            "job Last (not null)": true,
+                            "job Max": true,
+                            "value": false,
+                            "value Last (not null)": false,
+                            "value Max": true,
+                            "vaultOptionTrades": true,
+                            "vaultOptionTrades Last (not null)": true,
+                            "vaultOptionTrades Max": true
+                        },
+                        "indexByName": {},
+                        "renameByName": {}
+                    }
+                }
+            ],
+            "transparent": true,
+            "type": "table"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                            "color": "green",
+                            "value": null
+                        }]
+                    },
+                    "unit": "s"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 3,
+                "w": 4,
+                "x": 8,
+                "y": 4
+            },
+            "id": 38,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "auto"
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "exemplar": true,
+                "expr": "query_vaultShortPositions_expiry{job=\"$vault\"} - time()",
+                "instant": false,
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+            }],
+            "title": "Time till Expiry",
+            "transparent": true,
+            "type": "stat"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                            "color": "green",
+                            "value": null
+                        }]
+                    },
+                    "unit": "currencyUSD"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 3,
+                "w": 4,
+                "x": 12,
+                "y": 4
+            },
+            "id": 42,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "auto"
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "exemplar": true,
+                "expr": "query_vaultShortPositions_strikePrice{job=\"$vault\"} / 100000000",
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+            }],
+            "title": "Current Strike Price",
+            "transformations": [],
+            "transparent": true,
+            "type": "stat"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                            "color": "green",
+                            "value": null
+                        }]
+                    },
+                    "unit": "currencyUSD"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 3,
+                "w": 4,
+                "x": 16,
+                "y": 4
+            },
+            "id": 23,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "auto"
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "exemplar": true,
+                "expr": "crypto_currency{pair=\"ethusd\", exchange=\"kraken\"}",
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+            }],
+            "title": "ETH Price",
+            "transparent": true,
+            "type": "stat"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "percentunit"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 3,
+                "w": 4,
+                "x": 20,
+                "y": 4
+            },
+            "id": 35,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "auto"
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                    "exemplar": true,
+                    "expr": "(query_vaultShortPositions_strikePrice{job=\"$vault\"} / 100000000)",
+                    "interval": "",
+                    "legendFormat": "",
+                    "refId": "A"
+                },
+                {
+                    "exemplar": true,
+                    "expr": "(crypto_currency{pair=\"ethusd\", exchange=\"kraken\"})",
+                    "hide": false,
+                    "interval": "",
+                    "legendFormat": "",
+                    "refId": "B"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Current % to Strike Price",
+            "transformations": [{
+                    "id": "calculateField",
+                    "options": {
+                        "binary": {
+                            "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"ryvUSDC-ETH-P-THETA\", vaultShortPositions=\"0\"}",
+                            "operator": "/",
+                            "reducer": "sum",
+                            "right": "crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}"
+                        },
+                        "mode": "binary",
+                        "reduce": {
+                            "reducer": "sum"
+                        },
+                        "replaceFields": true
+                    }
+                },
+                {
+                    "id": "calculateField",
+                    "options": {
+                        "binary": {
+                            "left": "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"ryvUSDC-ETH-P-THETA\", vaultShortPositions=\"0\"} / crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}",
+                            "operator": "-",
+                            "reducer": "sum",
+                            "right": "1"
+                        },
+                        "mode": "binary",
+                        "reduce": {
+                            "reducer": "sum"
+                        },
+                        "replaceFields": true
+                    }
+                },
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {
+                            "Time": false,
+                            "crypto_currency{exchange=\"kraken\", instance=\"cryptowat:9745\", job=\"cryptowat\", pair=\"ethusd\"}": false,
+                            "{endpoint=\"https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance\", instance=\"graphql-exporter:9199\", job=\"$vault\", vaultShortPositions=\"0\"}": false
+                        },
+                        "indexByName": {},
+                        "renameByName": {}
+                    }
+                }
+            ],
+            "transparent": true,
+            "type": "stat"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "continuous-GrYlRd"
+                    },
+                    "decimals": 2,
+                    "mappings": [],
+                    "max": 10000000,
+                    "min": 2,
+                    "thresholds": {
+                        "mode": "percentage",
+                        "steps": [{
+                                "color": "red",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 100
+                            }
+                        ]
+                    },
+                    "unit": "currencyUSD"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 4,
+                "x": 0,
+                "y": 6
+            },
+            "id": 21,
+            "options": {
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showThresholdLabels": false,
+                "showThresholdMarkers": false,
+                "text": {}
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "exemplar": true,
+                "expr": "query_vaults_totalBalance{job=\"$vault\"} / 1000000",
+                "instant": true,
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+            }],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Vault Balance",
+            "transformations": [],
+            "transparent": true,
+            "type": "gauge"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                            "color": "green",
+                            "value": null
+                        }]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 4,
+                "x": 4,
+                "y": 6
+            },
+            "id": 6,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "auto"
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "exemplar": true,
+                "expr": "query_vaults_numDepositors{job=\"$vault\"}",
+                "format": "time_series",
+                "instant": false,
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+            }],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Number Depositors",
+            "transformations": [],
+            "transparent": true,
+            "type": "stat"
+        },
+        {
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "graph": false,
+                            "legend": false,
+                            "tooltip": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 3,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "always",
+                        "spanNulls": true
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                            "color": "green",
+                            "value": null
+                        }]
+                    },
+                    "unit": "short"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 7,
+                "w": 16,
+                "x": 8,
+                "y": 7
+            },
+            "id": 44,
+            "options": {
+                "graph": {},
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                },
+                "tooltipOptions": {
+                    "mode": "single"
+                }
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                    "exemplar": true,
+                    "expr": "crypto_currency{pair=\"ethusd\", exchange=\"kraken\"}",
+                    "interval": "",
+                    "legendFormat": "Current Price",
+                    "refId": "A"
+                },
+                {
+                    "exemplar": true,
+                    "expr": "query_vaultShortPositions_strikePrice{job=\"$vault\"} / 100000000",
+                    "hide": false,
+                    "interval": "",
+                    "legendFormat": "Strike Price",
+                    "refId": "B"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Price Chart",
+            "transformations": [],
+            "transparent": true,
+            "type": "timeseries"
+        },
+        {
+            "datasource": null,
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                            "color": "green",
+                            "value": null
+                        }]
+                    },
+                    "unit": "currencyUSD"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 4,
+                "x": 0,
+                "y": 11
+            },
+            "id": 40,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "auto"
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "exemplar": true,
+                "expr": "query_vaults_totalPremiumEarned{job=\"$vault\"} / 1000000",
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+            }],
+            "title": "Total Premium Earned",
+            "transparent": true,
+            "type": "stat"
+        },
+        {
+            "datasource": null,
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "percentunit"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 4,
+                "x": 4,
+                "y": 11
+            },
+            "id": 47,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "auto"
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                    "exemplar": true,
+                    "expr": "(query_vaults_totalPremiumEarned{job=\"$vault\"} / 1000000)",
+                    "interval": "",
+                    "legendFormat": "premium",
+                    "refId": "A"
+                },
+                {
+                    "exemplar": true,
+                    "expr": "(query_vaults_totalBalance{job=\"$vault\"}  / 1000000)",
+                    "hide": false,
+                    "interval": "",
+                    "legendFormat": "balance",
+                    "refId": "B"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Total Vault ROI",
+            "transformations": [{
+                    "id": "calculateField",
+                    "options": {
+                        "alias": "roi",
+                        "binary": {
+                            "left": "premium",
+                            "operator": "/",
+                            "reducer": "sum",
+                            "right": "balance"
+                        },
+                        "mode": "binary",
+                        "reduce": {
+                            "reducer": "sum"
+                        }
+                    }
+                },
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {
+                            "Time": true,
+                            "balance": true,
+                            "premium": true
+                        },
+                        "indexByName": {},
+                        "renameByName": {}
+                    }
+                }
+            ],
+            "transparent": true,
+            "type": "stat"
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "description": "Open Interest on Ribbon vs. Deribit on the Current Strike price and Expiry . \n\nNote this takes from the vault total balance and based when funds where added may not reflect the total sold",
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 7,
+                "w": 16,
+                "x": 8,
+                "y": 14
+            },
+            "hiddenSeries": false,
+            "id": 56,
+            "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.4",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [{
+                    "exemplar": true,
+                    "expr": "deribit_open_interest_compared_to_vault{vault=\"rUSDC-ETH-P-THETA\"}",
+                    "interval": "",
+                    "legendFormat": "deribit_open_interest",
+                    "refId": "A"
+                },
+                {
+                    "exemplar": true,
+                    "expr": "query_vaults_totalBalance{job=\"rUSDC-ETH-P-THETA\"} / 1000000000",
+                    "hide": false,
+                    "interval": "",
+                    "legendFormat": "ribbon_open_interest",
+                    "refId": "B"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Ribbon vs. Deribit Open Interest",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transparent": true,
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [{
+                    "$$hashKey": "object:57",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "$$hashKey": "object:58",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "datasource": null,
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "decimals": 2,
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [{
+                            "color": "green",
+                            "value": null
+                        }]
+                    },
+                    "unit": "currencyUSD"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 4,
+                "x": 0,
+                "y": 16
+            },
+            "id": 41,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "auto"
+            },
+            "pluginVersion": "7.5.4",
+            "targets": [{
+                "exemplar": true,
+                "expr": "query_vaults_totalWithdrawalFee{job=\"$vault\"} / 1000000",
+                "interval": "",
+                "legendFormat": "",
+                "refId": "A"
+            }],
+            "title": "Total Withdraw Fee Earned",
+            "transparent": true,
+            "type": "stat"
+        }
+    ],
+    "schemaVersion": 27,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+        "list": [{
+            "allValue": null,
+            "current": {
+                "selected": false,
+                "text": "ryvUSDC-ETH-P-THETA",
+                "value": "ryvUSDC-ETH-P-THETA"
+            },
+            "description": null,
+            "error": null,
+            "hide": 0,
+            "includeAll": false,
+            "label": null,
+            "multi": false,
+            "name": "vault",
+            "options": [{
+                "selected": true,
+                "text": "ryvUSDC-ETH-P-THETA",
+                "value": "ryvUSDC-ETH-P-THETA"
+            }],
+            "query": "ryvUSDC-ETH-P-THETA",
+            "queryValue": "",
+            "skipUrlSync": false,
+            "type": "custom"
+        }]
+    },
+    "time": {
+        "from": "now-5m",
+        "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "ryvUSDC-ETH-P-THETA",
+    "uid": "hH2ap5XGz1ww",
+    "version": 2
+}

@@ -13,6 +13,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
+    "id": 6,
     "links": [],
     "panels": [{
             "datasource": null,
@@ -21,8 +22,8 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 7,
-                "w": 12,
+                "h": 8,
+                "w": 9,
                 "x": 0,
                 "y": 0
             },
@@ -43,9 +44,9 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 7,
-                "w": 12,
-                "x": 12,
+                "h": 8,
+                "w": 7,
+                "x": 9,
                 "y": 0
             },
             "id": 17,
@@ -85,10 +86,10 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 5,
+                "h": 8,
                 "w": 8,
-                "x": 0,
-                "y": 7
+                "x": 16,
+                "y": 0
             },
             "id": 11,
             "options": {
@@ -147,6 +148,15 @@
                     "interval": "",
                     "legendFormat": "rUSDC-ETH-P-THETA",
                     "refId": "E"
+                },
+                {
+                    "exemplar": true,
+                    "expr": "query_vaults_totalBalance{job=\"ryvUSDC-ETH-P-THETA\"}  / 1000000",
+                    "hide": false,
+                    "instant": false,
+                    "interval": "",
+                    "legendFormat": "ryvUSDC-ETH-P-THETA",
+                    "refId": "F"
                 }
             ],
             "timeFrom": null,
@@ -215,125 +225,26 @@
                         "reduce": {
                             "reducer": "sum"
                         },
+                        "replaceFields": false
+                    }
+                },
+                {
+                    "id": "calculateField",
+                    "options": {
+                        "binary": {
+                            "left": "tvl_usd + rUSDC-ETH-P-THETA",
+                            "operator": "+",
+                            "reducer": "sum",
+                            "right": "ryvUSDC-ETH-P-THETA"
+                        },
+                        "mode": "binary",
+                        "reduce": {
+                            "reducer": "sum"
+                        },
                         "replaceFields": true
                     }
                 }
             ],
-            "transparent": true,
-            "type": "stat"
-        },
-        {
-            "datasource": null,
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [{
-                            "color": "green",
-                            "value": null
-                        }]
-                    },
-                    "unit": "short"
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 5,
-                "w": 7,
-                "x": 8,
-                "y": 7
-            },
-            "id": 12,
-            "options": {
-                "colorMode": "value",
-                "graphMode": "area",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": [
-                        "lastNotNull"
-                    ],
-                    "fields": "",
-                    "values": false
-                },
-                "text": {},
-                "textMode": "auto"
-            },
-            "pluginVersion": "7.5.4",
-            "targets": [{
-                "exemplar": true,
-                "expr": "query_vaults_totalBalance{job=\"rBTC-THETA\"} / 100000000",
-                "instant": false,
-                "interval": "",
-                "legendFormat": "",
-                "refId": "A"
-            }],
-            "timeFrom": null,
-            "timeShift": null,
-            "title": "TVL (BTC)",
-            "transformations": [],
-            "transparent": true,
-            "type": "stat"
-        },
-        {
-            "datasource": null,
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [{
-                            "color": "green",
-                            "value": null
-                        }]
-                    },
-                    "unit": "short"
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 5,
-                "w": 8,
-                "x": 15,
-                "y": 7
-            },
-            "id": 13,
-            "options": {
-                "colorMode": "value",
-                "graphMode": "area",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": [
-                        "lastNotNull"
-                    ],
-                    "fields": "",
-                    "values": false
-                },
-                "text": {},
-                "textMode": "auto"
-            },
-            "pluginVersion": "7.5.4",
-            "targets": [{
-                "exemplar": true,
-                "expr": "query_vaults_totalBalance{job=\"rETH-THETA\"} / 1000000000000000000",
-                "instant": false,
-                "interval": "",
-                "legendFormat": "",
-                "refId": "A"
-            }],
-            "timeFrom": null,
-            "timeShift": null,
-            "title": "TVL (ETH)",
-            "transformations": [],
-            "transparent": true,
             "type": "stat"
         },
         {
@@ -401,7 +312,7 @@
                 "h": 9,
                 "w": 8,
                 "x": 0,
-                "y": 12
+                "y": 8
             },
             "id": 2,
             "options": {
@@ -539,7 +450,7 @@
                 "h": 9,
                 "w": 8,
                 "x": 8,
-                "y": 12
+                "y": 8
             },
             "id": 6,
             "options": {
@@ -652,7 +563,7 @@
                 "h": 9,
                 "w": 8,
                 "x": 16,
-                "y": 12
+                "y": 8
             },
             "id": 24,
             "options": {
@@ -686,7 +597,28 @@
             "fieldConfig": {
                 "defaults": {
                     "color": {
-                        "mode": "thresholds"
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "graph": false,
+                            "legend": false,
+                            "tooltip": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "auto",
+                        "spanNulls": false
                     },
                     "mappings": [],
                     "thresholds": {
@@ -695,624 +627,43 @@
                             "color": "green",
                             "value": null
                         }]
-                    }
+                    },
+                    "unit": "short"
                 },
                 "overrides": []
             },
             "gridPos": {
-                "h": 4,
-                "w": 3,
+                "h": 9,
+                "w": 8,
                 "x": 0,
-                "y": 21
+                "y": 17
             },
-            "id": 9,
+            "id": 30,
             "options": {
-                "colorMode": "value",
-                "graphMode": "area",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": [
-                        "lastNotNull"
-                    ],
-                    "fields": "",
-                    "values": false
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
                 },
-                "text": {},
-                "textMode": "auto"
+                "tooltipOptions": {
+                    "mode": "single"
+                }
             },
             "pluginVersion": "7.5.4",
             "targets": [{
                 "exemplar": true,
-                "expr": "query_vaults_numDepositors{job=\"rBTC-THETA\"}",
-                "format": "time_series",
+                "expr": "query_vaults_totalBalance{job=\"ryvUSDC-ETH-P-THETA\"} / 1000000",
                 "instant": false,
                 "interval": "",
-                "legendFormat": "",
+                "legendFormat": "tvl",
                 "refId": "A"
             }],
             "timeFrom": null,
             "timeShift": null,
-            "title": "rBTC-THETA Number Depositors",
+            "title": "ryvUSDC-ETH-P-THETA TVL",
             "transformations": [],
             "transparent": true,
-            "type": "stat"
-        },
-        {
-            "datasource": null,
-            "description": "",
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "decimals": 2,
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [{
-                            "color": "red",
-                            "value": null
-                        }]
-                    },
-                    "unit": "currencyBTC"
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 4,
-                "w": 2,
-                "x": 3,
-                "y": 21
-            },
-            "id": 19,
-            "options": {
-                "colorMode": "value",
-                "graphMode": "area",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": [
-                        "lastNotNull"
-                    ],
-                    "fields": "",
-                    "values": false
-                },
-                "text": {},
-                "textMode": "auto"
-            },
-            "pluginVersion": "7.5.4",
-            "targets": [{
-                "exemplar": true,
-                "expr": "query_vaultShortPositions_loss{job=\"rBTC-THETA\"} / 1000000000000000000",
-                "interval": "",
-                "legendFormat": "",
-                "refId": "A"
-            }],
-            "title": "Total Vault Loss",
-            "transparent": true,
-            "type": "stat"
-        },
-        {
-            "datasource": null,
-            "description": "",
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [{
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "percent"
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 4,
-                "w": 2,
-                "x": 5,
-                "y": 21
-            },
-            "id": 21,
-            "options": {
-                "colorMode": "value",
-                "graphMode": "area",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": [
-                        "lastNotNull"
-                    ],
-                    "fields": "",
-                    "values": false
-                },
-                "text": {},
-                "textMode": "auto"
-            },
-            "pluginVersion": "7.5.4",
-            "targets": [{
-                    "exemplar": true,
-                    "expr": "(query_vaults_totalPremiumEarned{job=\"rBTC-THETA\"} / 100000000)",
-                    "interval": "",
-                    "legendFormat": "premium",
-                    "refId": "A"
-                },
-                {
-                    "exemplar": true,
-                    "expr": "query_vaults_totalBalance{job=\"rBTC-THETA\"}  / 100000000",
-                    "hide": false,
-                    "interval": "",
-                    "legendFormat": "balance",
-                    "refId": "B"
-                }
-            ],
-            "timeFrom": null,
-            "timeShift": null,
-            "title": "Total Vault ROI",
-            "transformations": [{
-                    "id": "calculateField",
-                    "options": {
-                        "alias": "roi",
-                        "binary": {
-                            "left": "premium",
-                            "operator": "/",
-                            "reducer": "sum",
-                            "right": "balance"
-                        },
-                        "mode": "binary",
-                        "reduce": {
-                            "reducer": "sum"
-                        }
-                    }
-                },
-                {
-                    "id": "organize",
-                    "options": {
-                        "excludeByName": {
-                            "Time": true,
-                            "balance": true,
-                            "premium": true
-                        },
-                        "indexByName": {},
-                        "renameByName": {}
-                    }
-                }
-            ],
-            "transparent": true,
-            "type": "stat"
-        },
-        {
-            "datasource": null,
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [{
-                            "color": "green",
-                            "value": null
-                        }]
-                    }
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 4,
-                "w": 3,
-                "x": 8,
-                "y": 21
-            },
-            "id": 28,
-            "options": {
-                "colorMode": "value",
-                "graphMode": "area",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": [
-                        "lastNotNull"
-                    ],
-                    "fields": "",
-                    "values": false
-                },
-                "text": {},
-                "textMode": "auto"
-            },
-            "pluginVersion": "7.5.4",
-            "targets": [{
-                "exemplar": true,
-                "expr": "query_vaults_numDepositors{job=\"rETH-THETA\"}",
-                "format": "time_series",
-                "instant": false,
-                "interval": "",
-                "legendFormat": "",
-                "refId": "A"
-            }],
-            "timeFrom": null,
-            "timeShift": null,
-            "title": "rETH-THETA Number Depositors",
-            "transformations": [],
-            "transparent": true,
-            "type": "stat"
-        },
-        {
-            "datasource": null,
-            "description": "",
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "decimals": 2,
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [{
-                            "color": "red",
-                            "value": null
-                        }]
-                    },
-                    "unit": "ETH"
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 4,
-                "w": 2,
-                "x": 11,
-                "y": 21
-            },
-            "id": 22,
-            "options": {
-                "colorMode": "value",
-                "graphMode": "area",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": [
-                        "lastNotNull"
-                    ],
-                    "fields": "",
-                    "values": false
-                },
-                "text": {},
-                "textMode": "auto"
-            },
-            "pluginVersion": "7.5.4",
-            "targets": [{
-                "exemplar": true,
-                "expr": "query_vaultShortPositions_loss{job=\"rETH-THETA\"} / 1000000000000000000",
-                "interval": "",
-                "legendFormat": "",
-                "refId": "A"
-            }],
-            "title": "Total Vault Loss",
-            "transparent": true,
-            "type": "stat"
-        },
-        {
-            "datasource": null,
-            "description": "",
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [{
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "percent"
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 4,
-                "w": 2,
-                "x": 13,
-                "y": 21
-            },
-            "id": 27,
-            "options": {
-                "colorMode": "value",
-                "graphMode": "area",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": [
-                        "lastNotNull"
-                    ],
-                    "fields": "",
-                    "values": false
-                },
-                "text": {},
-                "textMode": "auto"
-            },
-            "pluginVersion": "7.5.4",
-            "targets": [{
-                    "exemplar": true,
-                    "expr": "(query_vaults_totalPremiumEarned{job=\"rETH-THETA\"} / 1000000000000000000)",
-                    "interval": "",
-                    "legendFormat": "premium",
-                    "refId": "A"
-                },
-                {
-                    "exemplar": true,
-                    "expr": "query_vaults_totalBalance{job=\"rETH-THETA\"}  / 1000000000000000000",
-                    "hide": false,
-                    "interval": "",
-                    "legendFormat": "balance",
-                    "refId": "B"
-                }
-            ],
-            "timeFrom": null,
-            "timeShift": null,
-            "title": "Total Vault ROI",
-            "transformations": [{
-                    "id": "calculateField",
-                    "options": {
-                        "alias": "roi",
-                        "binary": {
-                            "left": "premium",
-                            "operator": "/",
-                            "reducer": "sum",
-                            "right": "balance"
-                        },
-                        "mode": "binary",
-                        "reduce": {
-                            "reducer": "sum"
-                        }
-                    }
-                },
-                {
-                    "id": "organize",
-                    "options": {
-                        "excludeByName": {
-                            "Time": true,
-                            "balance": true,
-                            "premium": true
-                        },
-                        "indexByName": {},
-                        "renameByName": {}
-                    }
-                }
-            ],
-            "transparent": true,
-            "type": "stat"
-        },
-        {
-            "datasource": null,
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [{
-                            "color": "green",
-                            "value": null
-                        }]
-                    }
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 4,
-                "w": 3,
-                "x": 16,
-                "y": 21
-            },
-            "id": 25,
-            "options": {
-                "colorMode": "value",
-                "graphMode": "area",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": [
-                        "lastNotNull"
-                    ],
-                    "fields": "",
-                    "values": false
-                },
-                "text": {},
-                "textMode": "auto"
-            },
-            "pluginVersion": "7.5.4",
-            "targets": [{
-                "exemplar": true,
-                "expr": "query_vaults_numDepositors{job=\"rUSDC-ETH-P-THETA\"}",
-                "format": "time_series",
-                "instant": false,
-                "interval": "",
-                "legendFormat": "",
-                "refId": "A"
-            }],
-            "timeFrom": null,
-            "timeShift": null,
-            "title": "rUSDC-ETH-P-THETA Number Depositors",
-            "transformations": [],
-            "transparent": true,
-            "type": "stat"
-        },
-        {
-            "datasource": null,
-            "description": "",
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "decimals": 2,
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [{
-                            "color": "red",
-                            "value": null
-                        }]
-                    },
-                    "unit": "currencyUSD"
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 4,
-                "w": 2,
-                "x": 19,
-                "y": 21
-            },
-            "id": 29,
-            "options": {
-                "colorMode": "value",
-                "graphMode": "area",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": [
-                        "lastNotNull"
-                    ],
-                    "fields": "",
-                    "values": false
-                },
-                "text": {},
-                "textMode": "auto"
-            },
-            "pluginVersion": "7.5.4",
-            "targets": [{
-                "exemplar": true,
-                "expr": "query_vaultShortPositions_loss{job=\"rUSDC-ETH-P-THETA\"} / 1000000000000000000",
-                "interval": "",
-                "legendFormat": "",
-                "refId": "A"
-            }],
-            "title": "Total Vault Loss",
-            "transparent": true,
-            "type": "stat"
-        },
-        {
-            "datasource": null,
-            "description": "",
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [{
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "percent"
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 4,
-                "w": 2,
-                "x": 21,
-                "y": 21
-            },
-            "id": 23,
-            "options": {
-                "colorMode": "value",
-                "graphMode": "area",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": [
-                        "lastNotNull"
-                    ],
-                    "fields": "",
-                    "values": false
-                },
-                "text": {},
-                "textMode": "auto"
-            },
-            "pluginVersion": "7.5.4",
-            "targets": [{
-                    "exemplar": true,
-                    "expr": "(query_vaults_totalPremiumEarned{job=\"rUSDC-ETH-P-THETA\"} / 100000000)",
-                    "interval": "",
-                    "legendFormat": "premium",
-                    "refId": "A"
-                },
-                {
-                    "exemplar": true,
-                    "expr": "query_vaults_totalBalance{job=\"rUSDC-ETH-P-THETA\"}  / 10000000000",
-                    "hide": false,
-                    "interval": "",
-                    "legendFormat": "balance",
-                    "refId": "B"
-                }
-            ],
-            "timeFrom": null,
-            "timeShift": null,
-            "title": "Total Vault ROI",
-            "transformations": [{
-                    "id": "calculateField",
-                    "options": {
-                        "alias": "roi",
-                        "binary": {
-                            "left": "premium",
-                            "operator": "/",
-                            "reducer": "sum",
-                            "right": "balance"
-                        },
-                        "mode": "binary",
-                        "reduce": {
-                            "reducer": "sum"
-                        }
-                    }
-                },
-                {
-                    "id": "organize",
-                    "options": {
-                        "excludeByName": {
-                            "Time": true,
-                            "balance": true,
-                            "premium": true
-                        },
-                        "indexByName": {},
-                        "renameByName": {}
-                    }
-                }
-            ],
-            "transparent": true,
-            "type": "stat"
+            "type": "timeseries"
         }
     ],
     "schemaVersion": 27,
@@ -1355,5 +706,5 @@
     "timezone": "browser",
     "title": "Overview",
     "uid": "cq9tEx9Gkaa1a",
-    "version": 5
+    "version": 2
 }

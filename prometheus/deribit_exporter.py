@@ -89,6 +89,36 @@ class PrometheusClient:
         strike = round(int(req["result"][0]["instrument_name"].split("-")[2]))
         self.g.labels(vault='rUSDC-ETH-P-THETA', instrument=name, strike=strike).set(oi)
 
+    def ryvUSDC_ETH_P_THETA(self):
+        r = requests.get(
+            'https://deribit.com/api/v2/public/get_instruments?currency=ETH&expired=false&kind=option')
+        req = r.json()
+
+        ## get current strike prices and expiry
+        prom = PrometheusConnect(url=self.metrics, disable_ssl=True)
+        eth_strike_price = prom.custom_query(
+            query="query_vaultShortPositions_strikePrice{job='ryvUSDC-ETH-P-THETA'} / 100000000")
+        eth_strike_price = round(float(eth_strike_price[0]["value"][1]))
+        eth_exp = prom.custom_query(
+            query="query_vaultShortPositions_expiry{job='ryvUSDC-ETH-P-THETA'} * 1000")
+        eth_exp = float(eth_exp[0]["value"][1])
+
+        ribbon_oi = prom.custom_query(
+            query="query_vaults_totalBalance{job='ryvUSDC-ETH-P-THETA'} / 1000000")
+
+        ## filter by strike and expiry
+        a = list(filter(lambda x: x["expiration_timestamp"] == eth_exp and x["option_type"]
+                 == "call" and x["strike"] == eth_strike_price, req["result"]))
+        o = a[0]
+        name = o["instrument_name"]
+        r = requests.get(
+            "https://deribit.com/api/v2/public/get_book_summary_by_instrument?instrument_name=" + name)
+        req = r.json()
+        oi = req["result"][0]["open_interest"]
+        strike = round(int(req["result"][0]["instrument_name"].split("-")[2]))
+        self.g.labels(vault='ryvUSDC-ETH-P-THETA',
+                      instrument=name, strike=strike).set(oi)
+
     def allOI(self):
         # BTC Calls and Puts
         r = requests.get(
@@ -146,4 +176,5 @@ if __name__ == '__main__':
         p.rETH_THETA()
         p.rBTC_THETA()
         p.rUSDC_ETH_P_THETA()
+        p.ryvUSDC_ETH_P_THETA()
         p.allOI()
