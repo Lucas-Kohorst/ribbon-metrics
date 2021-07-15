@@ -1,4 +1,4 @@
-# Theta Vault Metrics
+# RIbbon Metrics
 - [ribbon.finance](https://ribbon.finance)
 - [Twitter](https://twitter.com/ribbonfinance)
 - [Discord](https://discord.com/invite/85gcVafPyN)
