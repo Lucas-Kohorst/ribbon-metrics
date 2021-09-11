@@ -53,7 +53,7 @@ services:
             user: root # https://github.com/prometheus/prometheus/issues/5976
             restart: unless-stopped
             hostname: prometheus
-            command: --storage.tsdb.retention.time=7d --config.file=/etc/prometheus/prometheus.yml
+            command: --storage.tsdb.retention.time=5y --config.file=/etc/prometheus/prometheus.yml
             volumes:
                 - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
             ports:
